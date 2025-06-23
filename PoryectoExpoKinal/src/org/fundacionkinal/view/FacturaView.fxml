@@ -24,32 +24,32 @@
 
 <AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1069.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iosefsuarez.controller.FacturaController">
    <children>
-      <GridPane layoutX="21.0" layoutY="99.0" prefHeight="165.0" prefWidth="1027.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="21.0">
+      <GridPane layoutX="21.0" layoutY="97.0" prefHeight="215.0" prefWidth="1027.0">
          <columnConstraints>
             <ColumnConstraints />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="123.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="377.0" minWidth="10.0" prefWidth="371.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="229.0" minWidth="10.0" prefWidth="151.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="309.0" minWidth="10.0" prefWidth="189.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="348.0" minWidth="10.0" prefWidth="347.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="377.0" minWidth="10.0" prefWidth="366.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="229.0" minWidth="10.0" prefWidth="49.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="309.0" minWidth="10.0" prefWidth="198.0" />
+            <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="SOMETIMES" maxWidth="348.0" minWidth="10.0" prefWidth="347.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="71.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="71.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
             <Label GridPane.columnIndex="1" />
             <Label text="TOTAL" GridPane.columnIndex="4" GridPane.rowIndex="1" />
             <Label text="FECHA EMISION" GridPane.columnIndex="4" />
-            <Label prefHeight="14.0" prefWidth="100.0" text="CANTIDAD" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label prefHeight="17.0" prefWidth="61.0" text="CANTIDAD" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="PRODUCTO" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="ID" GridPane.columnIndex="1" />
-            <TextField fx:id="txtId" prefHeight="15.0" prefWidth="292.0" GridPane.columnIndex="2" />
-            <TextField fx:id="txtTotal" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-            <ComboBox fx:id="cbxClientes" prefHeight="15.0" prefWidth="292.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <DatePicker fx:id="dpFecha" prefHeight="15.0" prefWidth="292.0" GridPane.columnIndex="5" />
+            <TextField fx:id="txtId" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="2" />
+            <TextField fx:id="txtTotal" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+            <ComboBox fx:id="cbxClientes" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <DatePicker fx:id="dpFecha" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="5" />
             <Label text="METODO DE PAGO" GridPane.columnIndex="4" GridPane.rowIndex="2" />
             <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="185.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
                <children>
@@ -61,17 +61,17 @@
                   <RadioButton fx:id="rbEfectivo" mnemonicParsing="false" text="EFECTIVO" toggleGroup="$metodoPago" />
                </children>
             </HBox>
-            <GridPane prefHeight="38.0" prefWidth="534.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <GridPane prefHeight="49.0" prefWidth="276.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="102.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="102.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="102.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button fx:id="btnNuevo" mnemonicParsing="false" onAction="#agregarGuardar" prefHeight="33.0" prefWidth="98.0" text="AGREGAR" textFill="WHITE">
+                  <Button fx:id="btnNuevo" mnemonicParsing="false" onAction="#agregarGuardar" prefHeight="34.0" prefWidth="85.0" text="AGREGAR" textFill="WHITE">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
@@ -80,7 +80,7 @@
                         <String fx:value="label-textField" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#editarFactura" prefHeight="33.0" prefWidth="98.0" text="EDITAR" textFill="WHITE" GridPane.columnIndex="1">
+                  <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#editarFactura" prefHeight="34.0" prefWidth="85.0" text="EDITAR" textFill="WHITE" GridPane.columnIndex="1">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
@@ -89,7 +89,7 @@
                         <String fx:value="label-textField" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminarCancelar" prefHeight="33.0" prefWidth="98.0" text="ELIMINAR" GridPane.columnIndex="2">
+                  <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminarCancelar" prefHeight="34.0" prefWidth="85.0" text="ELIMINAR" GridPane.columnIndex="2">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
@@ -112,15 +112,15 @@
                   </Button>
                </children>
             </GridPane>
-            <Button fx:id="btnReporte" mnemonicParsing="false" prefHeight="33.0" prefWidth="98.0" styleClass="btnRegresar" text="REPORTE" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="3">
+            <Button fx:id="btnReporte" mnemonicParsing="false" prefHeight="34.0" prefWidth="85.0" styleClass="btnRegresar" text="REPORTE" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="3">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Button>
-            <TextField fx:id="txtCantidad" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <TextField fx:id="txtCantidad" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <TableView fx:id="tablaFacturas" layoutX="21.0" layoutY="304.0" prefHeight="380.0" prefWidth="1027.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="21.0">
+      <TableView fx:id="tablaFacturas" layoutX="21.0" layoutY="338.0" prefHeight="346.0" prefWidth="1027.0">
          <columns>
             <TableColumn fx:id="colId" prefWidth="89.0" text="ID" />
             <TableColumn fx:id="colFechaEmision" minWidth="0.0" prefWidth="185.0" text="FECHA DE EMISION" />
@@ -133,7 +133,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Label layoutX="111.0" layoutY="14.0" prefHeight="58.0" prefWidth="185.0" styleClass="label-title" stylesheets="@../../../../../../../Downloads/ProyectoFinal2021691VetFXApp/ProyectoFinal2021691VetFXApp/src/org/iosefsuarez/resource/clienteview.css" text="FACTURA">
+      <Label layoutX="101.0" layoutY="14.0" prefHeight="58.0" prefWidth="185.0" text="FACTURA">
          <font>
             <Font name="Bell MT" size="33.0" />
          </font>

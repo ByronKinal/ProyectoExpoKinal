@@ -203,18 +203,18 @@ h1, h2, h3, h4, h5, h6, p, span, div {
 }
 
 /* --- Estilo para los TextField y ComboBox --- */
-.text-field, .combo-box {
-    -fx-background-color: #FFFFFF; /* Fondo blanco */
-    -fx-border-color: #B0BEC5; /* Borde gris azulado suave */
+/*.text-field, .combo-box {
+    -fx-background-color: #FFFFFF;  Fondo blanco 
+    -fx-border-color: #B0BEC5;  Borde gris azulado suave 
     -fx-border-width: 1px;
-    -fx-border-radius: 5px; /* Esquinas ligeramente redondeadas */
+    -fx-border-radius: 5px;  Esquinas ligeramente redondeadas 
     -fx-background-radius: 5px;
     -fx-font-family: "Arial Narrow";
-    -fx-font-size: 14px; /* Un poco más grandes */
-    -fx-padding: 8px; /* Más padding */
-    -fx-prompt-text-fill: #607D8B; /* Color del texto de sugerencia */
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 3, 0.1, 0, 2); /* Sombra sutil */
-}
+    -fx-font-size: 14px;  Un poco más grandes 
+    -fx-padding: 8px;  Más padding 
+    -fx-prompt-text-fill: #607D8B;  Color del texto de sugerencia 
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 3, 0.1, 0, 2);  Sombra sutil 
+}*/
 
 .text-field:focused, .combo-box:focused {
     -fx-border-color: #4DD0E1; /* Cian oscuro al enfocar */

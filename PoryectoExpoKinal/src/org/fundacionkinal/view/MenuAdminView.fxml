@@ -81,7 +81,7 @@
             <String fx:value="label-textField" />
          </styleClass>
       </TabPane>
-      <MenuBar layoutX="29.0" layoutY="8.0" prefHeight="25.0" prefWidth="1226.0">
+      <MenuBar prefHeight="25.0" prefWidth="1282.0">
         <menus>
           <Menu mnemonicParsing="false" text="CERRAR SESION">
             <items>
