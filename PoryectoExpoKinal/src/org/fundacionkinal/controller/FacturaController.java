@@ -1,26 +1,26 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
+
 package org.fundacionkinal.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import org.fundacionkinal.system.Main;
 
 /**
  * FXML Controller class
  *
- * @author Iosef
+ * @author Wilson Florian
  */
 public class FacturaController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    private Main principal;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        
+    }  
     
+    public void setPrincipal(Main principal) {
+        this.principal = principal;
+    }
 }
