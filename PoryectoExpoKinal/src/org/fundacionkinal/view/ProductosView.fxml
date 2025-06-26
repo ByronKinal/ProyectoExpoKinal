@@ -111,5 +111,17 @@
             <Image url="@../image/PRODUCTOSSS.png" />
          </image>
       </ImageView>
+      <Button contentDisplay="TOP" layoutX="880.0" layoutY="13.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="91.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="RETURN" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/menua.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

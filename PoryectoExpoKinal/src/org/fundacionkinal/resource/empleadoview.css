@@ -5,7 +5,7 @@
 .mainFxmlClass {
     .table-view {
     -fx-background-color: #ffffff;
-    -fx-border-color: #d0d0d0; /* Gris medio pastel */
+    -fx-border-color: #d0d0d0; 
     -fx-border-width: 1px;
     -fx-font-family: "Arial Narrow";
     -fx-font-size: 13px;
@@ -13,17 +13,16 @@
     -fx-border-radius: 8px;
 }
 .root {
-    -fx-background-color: #5392c0 ; /* Fondo general azul claro pastel */
+    -fx-background-color: #fcd18c ; 
 }
 
 .label-title {
     -fx-font-family: "Arial Narrow";
     -fx-font-size: 30px;
     -fx-font-weight: bold;
-    -fx-text-fill: #8aaee0; /* Azul suave */
+    -fx-text-fill: #8aaee0; 
 }
 
-/* Botón principal */
 .button {
     -fx-background-color: #8aaee0;
     -fx-text-fill: white;
@@ -37,14 +36,14 @@
 }
 
 .button:hover {
-    -fx-background-color: #fcd18c; /* Naranja pastel */
+    -fx-background-color: #fcd18c; /* Naranja */
     -fx-text-fill: #333;
 }
 
 /* Botón secundario */
 .btnRegresar {
-    -fx-background-color: #e0e4e9; /* Gris claro pastel */
-    -fx-text-fill: #8aaee0;        /* Azul suave */
+    -fx-background-color: #e0e4e9; 
+    -fx-text-fill: #8aaee0;        
     -fx-font-weight: bold;
     -fx-padding: 8px 15px;
     -fx-border-radius: 20px;
@@ -52,7 +51,7 @@
 }
 
 .btnRegresar:hover {
-    -fx-background-color: #fcd18c; /* Naranja pastel */
+    -fx-background-color: #fcd18c; /* Naranja  */
     -fx-text-fill: #333333;
 }
 
@@ -70,7 +69,7 @@
 }
 
 .table-view .table-row-cell:odd {
-    -fx-background-color: #f4fbfe; /* Suave fondo alternado */
+    -fx-background-color: #f4fbfe; 
 }
 
 .table-view .table-row-cell:even {
@@ -82,7 +81,6 @@
     -fx-text-fill: #000000;
 }
 
-/* TextField y ComboBox */
 .text-field, .combo-box {
     -fx-background-color: #ffffff;
     -fx-border-color: #d0d0d0;

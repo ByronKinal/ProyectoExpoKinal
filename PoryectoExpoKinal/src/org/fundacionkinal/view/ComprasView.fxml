@@ -139,5 +139,17 @@
             </LinearGradient>
          </textFill>
       </Label>
+      <Button contentDisplay="TOP" layoutX="868.0" layoutY="11.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="91.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="RETURN" textFill="WHITE" AnchorPane.rightAnchor="41.0">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/menua.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>
