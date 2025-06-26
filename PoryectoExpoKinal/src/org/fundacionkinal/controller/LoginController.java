@@ -32,8 +32,8 @@ public class LoginController implements Initializable {
     }
     
     @FXML private Button btnIngresar;
-    @FXML private TextField txtEmail;
-    @FXML private TextField txtPassword;
+    @FXML private TextField txtCorreo;
+    @FXML private TextField txtContraseña;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cargarUsuarios();
@@ -70,8 +70,8 @@ public class LoginController implements Initializable {
     }
     
     private void iniciarSesion() {
-        String usuario = txtEmail.getText();
-        String contrasena = txtPassword.getText();
+        String usuario = txtCorreo.getText();
+        String contrasena = txtContraseña.getText();
 
         if (usuario.isEmpty() || contrasena.isEmpty()) {
             mostrarAlerta("Error", "Debe completar ambos campos");

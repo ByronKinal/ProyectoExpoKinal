@@ -75,10 +75,10 @@ public class Main extends Application{
     public void getFacturaView() {
         try {
             FacturaController control
-                    = (FacturaController) cambiarEscena("MenuAdminView.fxml", 1069, 700);
+                    = (FacturaController) cambiarEscena("FacturaView.fxml", 1069, 700);
             control.setPrincipal(this);
         } catch (Exception ex) {
-            System.out.println("Error al ir a menuAdmin: " + ex.getMessage());
+            System.out.println("Error al ir a facturas: " + ex.getMessage());
             ex.printStackTrace();
         }
     }

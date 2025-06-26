@@ -39,9 +39,9 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="txtEmail" prefHeight="36.0" prefWidth="270.0" GridPane.columnIndex="1" />
-            <TextField fx:id="txtPassword" prefHeight="36.0" prefWidth="270.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="btnIngresar" mnemonicParsing="false" prefHeight="34.0" prefWidth="85.0" text="INGRESAR" GridPane.columnIndex="1" GridPane.rowIndex="2" onAction="#clickManejadorEventos" />
+            <TextField fx:id="txtCorreo" prefHeight="36.0" prefWidth="270.0" GridPane.columnIndex="1" />
+            <TextField fx:id="txtContraseña" prefHeight="36.0" prefWidth="270.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="btnIngresar" mnemonicParsing="false" prefHeight="34.0" prefWidth="85.0" text="INGRESAR" onAction="#clickManejadorEventos" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>

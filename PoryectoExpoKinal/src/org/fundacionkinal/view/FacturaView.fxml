@@ -22,7 +22,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1069.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iosefsuarez.controller.FacturaController">
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1069.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fundacionkinal.controller.FacturaController">
    <children>
       <GridPane layoutX="21.0" layoutY="97.0" prefHeight="215.0" prefWidth="1027.0">
          <columnConstraints>
@@ -71,7 +71,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button fx:id="btnNuevo" mnemonicParsing="false" onAction="#agregarGuardar" prefHeight="34.0" prefWidth="85.0" text="AGREGAR" textFill="WHITE">
+                  <Button fx:id="btnNuevo" mnemonicParsing="false" prefHeight="34.0" prefWidth="85.0" text="AGREGAR" textFill="WHITE">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
@@ -80,7 +80,7 @@
                         <String fx:value="label-textField" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#editarFactura" prefHeight="34.0" prefWidth="85.0" text="EDITAR" textFill="WHITE" GridPane.columnIndex="1">
+                  <Button fx:id="btnEditar" mnemonicParsing="false" prefHeight="34.0" prefWidth="85.0" text="EDITAR" textFill="WHITE" GridPane.columnIndex="1">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
@@ -89,7 +89,7 @@
                         <String fx:value="label-textField" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminarCancelar" prefHeight="34.0" prefWidth="85.0" text="ELIMINAR" GridPane.columnIndex="2">
+                  <Button fx:id="btnEliminar" mnemonicParsing="false" prefHeight="34.0" prefWidth="85.0" text="ELIMINAR" GridPane.columnIndex="2">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
