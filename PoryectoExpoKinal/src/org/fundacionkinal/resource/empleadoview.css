@@ -3,5 +3,103 @@
  */
 
 .mainFxmlClass {
+    .table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d0d0d0; /* Gris medio pastel */
+    -fx-border-width: 1px;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-size: 13px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+}
+.root {
+    -fx-background-color: #5392c0 ; /* Fondo general azul claro pastel */
+}
+
+.label-title {
+    -fx-font-family: "Arial Narrow";
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #8aaee0; /* Azul suave */
+}
+
+/* Botón principal */
+.button {
+    -fx-background-color: #8aaee0;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 3, 0.1, 0, 1);
+}
+
+.button:hover {
+    -fx-background-color: #fcd18c; /* Naranja pastel */
+    -fx-text-fill: #333;
+}
+
+/* Botón secundario */
+.btnRegresar {
+    -fx-background-color: #e0e4e9; /* Gris claro pastel */
+    -fx-text-fill: #8aaee0;        /* Azul suave */
+    -fx-font-weight: bold;
+    -fx-padding: 8px 15px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+}
+
+.btnRegresar:hover {
+    -fx-background-color: #fcd18c; /* Naranja pastel */
+    -fx-text-fill: #333333;
+}
+
+/* TableView */
+
+
+.table-view .column-header-background {
+    -fx-background-color: #8aaee0;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #f4fbfe; /* Suave fondo alternado */
+}
+
+.table-view .table-row-cell:even {
+    -fx-background-color: #ffffff;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #d7eff9;
+    -fx-text-fill: #000000;
+}
+
+/* TextField y ComboBox */
+.text-field, .combo-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-size: 14px;
+    -fx-padding: 8px;
+    -fx-prompt-text-fill: #a8a8a8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.02), 2, 0.1, 0, 1);
+}
+
+.text-field:focused, .combo-box:focused {
+    -fx-border-color: #8aaee0;
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.05), 2, 0.1, 0, 0);
+}
+
 
 }

@@ -13,23 +13,26 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iosefsuarez.controller.ComprasController">
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../resource/facturaview.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fundacionkinal.controller.ComprasController">
    <children>
-      <TableView fx:id="tablaCompras" layoutX="34.0" layoutY="335.0" prefHeight="341.0" prefWidth="932.0" AnchorPane.leftAnchor="34.0">
+      <TableView layoutX="27.0" layoutY="330.0" prefHeight="341.0" prefWidth="932.0" stylesheets="@../resource/facturaview.css" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="41.0">
          <columns>
-            <TableColumn fx:id="columnId" prefWidth="75.0" text="ID" />
-            <TableColumn fx:id="columnFechaCompra" prefWidth="186.0" text="FECHACOMPRA" />
-            <TableColumn fx:id="columnTotal" prefWidth="243.0" text="TOTAL" />
-            <TableColumn fx:id="columnDetalle" prefWidth="415.0" text="DETALLE" />
-            <TableColumn fx:id="columnNombre" prefWidth="262.0" text="USUARIO" />
+            <TableColumn prefWidth="75.0" text="ID" />
+            <TableColumn prefWidth="186.0" text="FECHACOMPRA" />
+            <TableColumn prefWidth="243.0" text="TOTAL" />
+            <TableColumn prefWidth="415.0" text="DETALLE" />
+            <TableColumn prefWidth="262.0" text="CLIENTE" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <GridPane layoutX="34.0" layoutY="105.0" prefHeight="219.0" prefWidth="932.0">
+      <GridPane layoutX="27.0" layoutY="96.0" prefHeight="219.0" prefWidth="932.0" styleClass="grid-pane" stylesheets="@../resource/facturaview.css" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="41.0">
          <columnConstraints>
             <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="156.0" minWidth="10.0" prefWidth="78.0" />
             <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="SOMETIMES" maxWidth="331.0" minWidth="10.0" prefWidth="294.0" />
@@ -38,85 +41,103 @@
             <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="404.0" minWidth="10.0" prefWidth="403.0" />
          </columnConstraints>
          <rowConstraints>
+            <RowConstraints />
             <RowConstraints maxHeight="62.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="92.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="116.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="116.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="ID">
+            <Label text="ID" GridPane.rowIndex="1">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="txtId" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="1" />
-            <Label prefHeight="17.0" prefWidth="57.0" text="USUARIO" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <TextField prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label prefHeight="21.0" prefWidth="72.0" text="CLIENTE" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label text="FECHA" GridPane.rowIndex="1">
+            <Label text="FECHA" GridPane.rowIndex="2">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label text="TOTAL" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <Label text="TOTAL" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label text="DETALLE" GridPane.columnIndex="3">
+            <Label text="DETALLE" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="txtTotal" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <DatePicker fx:id="dpFecha" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <ComboBox fx:id="cbxProveedores" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <GridPane prefHeight="69.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <TextField prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <DatePicker prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <GridPane prefHeight="69.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <columnConstraints>
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="102.0" />
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="102.0" />
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="102.0" />
                </columnConstraints>
                <rowConstraints>
+                  <RowConstraints />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button fx:id="btnNuevo" mnemonicParsing="false" onAction="#agregarGuardar" prefHeight="34.0" prefWidth="85.0" text="AGREGAR" textFill="WHITE">
+                  <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="91.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="AGREGAR" textFill="WHITE" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#editarCompra" prefHeight="34.0" prefWidth="85.0" styleClass="btnRegresar" text="EDITAR" textFill="WHITE" GridPane.columnIndex="1">
+                  <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="91.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="EDITAR" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminarCancelar" prefHeight="34.0" prefWidth="85.0" text="ELIMINAR" textFill="WHITE" GridPane.columnIndex="2">
+                  <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="91.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="ELIMINAR" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
                   </Button>
                </children>
             </GridPane>
-            <Button fx:id="btnSiguiente" mnemonicParsing="false" onAction="#btnSiguienteAccion" prefHeight="34.0" prefWidth="85.0" text="REPORTE" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="3">
+            <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="91.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="REPORTE" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="4">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Button>
-            <TextField fx:id="txtDetalle" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="4" />
+            <TextField prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Label layoutX="109.0" layoutY="32.0" prefHeight="35.0" prefWidth="139.0" text="COMPRA">
-         <font>
-            <Font name="Bell MT" size="30.0" />
-         </font>
-      </Label>
       <ImageView fitHeight="66.0" fitWidth="79.0" layoutX="34.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="34.0">
          <image>
             <Image url="@../image/COMPRASS.png" />
          </image>
       </ImageView>
+      <Label layoutX="106.0" layoutY="14.0" prefHeight="66.0" prefWidth="157.0" styleClass="label-title" stylesheets="@../resource/facturaview.css" text="COMPRA" AnchorPane.leftAnchor="106.0">
+         <font>
+            <Font name="Bell MT" size="30.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="0.9431279620853081" endY="0.41706161137440756" startX="0.95260663507109" startY="0.7582938388625593">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.9868420958518982" green="0.4655519127845764" blue="0.24214181303977966" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
    </children>
 </AnchorPane>
