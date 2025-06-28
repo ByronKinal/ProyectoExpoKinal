@@ -8,9 +8,12 @@ import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.fundacionkinal.controller.ComprasController;
+import org.fundacionkinal.controller.EmpleadoController;
 import org.fundacionkinal.controller.FacturaController;
 import org.fundacionkinal.controller.LoginController;
 import org.fundacionkinal.controller.MenuAdminController;
+import org.fundacionkinal.controller.ProductosController;
 
 /**
  *
@@ -79,6 +82,39 @@ public class Main extends Application{
             control.setPrincipal(this);
         } catch (Exception ex) {
             System.out.println("Error al ir a facturas: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+    
+    public void getComprasView() {
+        try {
+            ComprasController control
+                    = (ComprasController) cambiarEscena("ComprasView.fxml", 1000, 700);
+            control.setPrincipal(this);
+        } catch (Exception ex) {
+            System.out.println("Error al ir a compras: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+    
+    public void getEmpleadosView() {
+        try {
+            EmpleadoController control
+                    = (EmpleadoController) cambiarEscena("EmpleadoView.fxml", 1000, 700);
+            control.setPrincipal(this);
+        } catch (Exception ex) {
+            System.out.println("Error al ir a empleados: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+    
+    public void getProductosView() {
+        try {
+            ProductosController control
+                    = (ProductosController) cambiarEscena("ProductosView.fxml", 1000, 700);
+            control.setPrincipal(this);
+        } catch (Exception ex) {
+            System.out.println("Error al ir a productos: " + ex.getMessage());
             ex.printStackTrace();
         }
     }

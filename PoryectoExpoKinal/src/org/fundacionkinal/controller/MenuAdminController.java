@@ -41,13 +41,13 @@ public class MenuAdminController implements Initializable {
             //principal.getCaratulaView();
             
         }else if (evento.getSource() == btnEmpleados) {
-            //principal.getEmpleadosView();
+            principal.getEmpleadosView();
             
         }else if (evento.getSource() == btnCompras) {
-            //principal.getComprasView();
+            principal.getComprasView();
             
         }else if (evento.getSource() == btnProductos) {
-            //principal.getProductosView();
+            principal.getProductosView();
         }   
     }   
 }

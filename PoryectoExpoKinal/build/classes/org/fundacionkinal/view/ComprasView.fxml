@@ -23,14 +23,14 @@
 
 <AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1000.0" styleClass="root" stylesheets="@../resource/facturaview.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fundacionkinal.controller.ComprasController">
    <children>
-      <TableView layoutX="27.0" layoutY="330.0" prefHeight="341.0" prefWidth="932.0" stylesheets="@../resource/facturaview.css" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="41.0">
+      <TableView fx:id="tablaCompras" layoutX="27.0" layoutY="330.0" prefHeight="341.0" prefWidth="932.0" stylesheets="@../resource/facturaview.css" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="41.0">
          <columns>
-            <TableColumn prefWidth="75.0" text="ID" />
-            <TableColumn prefWidth="119.0" text="CLIENTE" />
-            <TableColumn prefWidth="139.0" text="TOTAL" />
-            <TableColumn prefWidth="208.0" text="ESTADO DE COMPRA" />
-            <TableColumn prefWidth="196.0" text="ESTADO DE PAGO" />
-            <TableColumn prefWidth="191.0" text="FECHA" />
+            <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="colCliente" prefWidth="119.0" text="CLIENTE" />
+            <TableColumn fx:id="colTotal" prefWidth="139.0" text="TOTAL" />
+            <TableColumn fx:id="colEstadoCompra" prefWidth="208.0" text="ESTADO DE COMPRA" />
+            <TableColumn fx:id="colEstadoPago" prefWidth="196.0" text="ESTADO DE PAGO" />
+            <TableColumn fx:id="colFecha" prefWidth="191.0" text="FECHA" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -57,7 +57,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextField prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtId" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label prefHeight="21.0" prefWidth="72.0" text="CLIENTE" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -78,9 +78,9 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextField prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <DatePicker prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ComboBox prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <TextField fx:id="txtTotal" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <DatePicker fx:id="dpFecha" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox fx:id="cbCliente" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
             <GridPane prefHeight="69.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <columnConstraints>
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="102.0" />
@@ -92,24 +92,24 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="91.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="AGREGAR" textFill="WHITE" GridPane.rowIndex="1">
+                  <Button fx:id="btnAgregar" mnemonicParsing="false" onAction="#cambiarNuevaCompra" prefHeight="34.0" prefWidth="91.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="AGREGAR" textFill="WHITE" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="91.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="EDITAR" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#cambiarEdicionCompra" prefHeight="34.0" prefWidth="91.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="EDITAR" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="91.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="ELIMINAR" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#cambiarCancelarEliminar" prefHeight="34.0" prefWidth="91.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="ELIMINAR" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
                   </Button>
                </children>
             </GridPane>
-            <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="91.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="REPORTE" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="4">
+            <Button fx:id="btnReporte" mnemonicParsing="false" prefHeight="34.0" prefWidth="91.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="REPORTE" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="4">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
@@ -121,27 +121,23 @@
             </Label>
             <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="296.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <RadioButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="103.0" text="PENDIENTE">
+                  <RadioButton fx:id="rbPendienteCompra" alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="103.0" text="PENDIENTE">
                      <toggleGroup>
-                        <ToggleGroup fx:id="mascotaSexo" />
+                        <ToggleGroup fx:id="tgEstadoCompra" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="120.0" text="COMPLETADA" toggleGroup="$mascotaSexo" />
-                  <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="96.0" text="CANCELADA">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="mascotaSexo1" />
-                     </toggleGroup>
-                  </RadioButton>
+                  <RadioButton fx:id="rbCompletada" mnemonicParsing="false" prefHeight="17.0" prefWidth="120.0" text="COMPLETADA" toggleGroup="$tgEstadoCompra" />
+                  <RadioButton fx:id="rbCancelada" mnemonicParsing="false" prefHeight="17.0" prefWidth="96.0" text="CANCELADA" toggleGroup="$tgEstadoCompra" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <children>
-                  <RadioButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="97.0" text="PENDIENTE">
+                  <RadioButton fx:id="rbPendientePago" alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="97.0" text="PENDIENTE">
                      <toggleGroup>
-                        <ToggleGroup fx:id="mascotaSexo2" />
+                        <ToggleGroup fx:id="tgEstadoPago" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="91.0" text="PAGADO" toggleGroup="$mascotaSexo2" />
+                  <RadioButton fx:id="rbPagado" mnemonicParsing="false" prefHeight="17.0" prefWidth="91.0" text="PAGADO" toggleGroup="$tgEstadoPago" />
                </children>
             </HBox>
          </children>
@@ -172,7 +168,7 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <Button contentDisplay="TOP" layoutX="868.0" layoutY="11.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="91.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="RETURN" textFill="WHITE" AnchorPane.rightAnchor="41.0">
+      <Button fx:id="btnRegresar" contentDisplay="TOP" layoutX="868.0" layoutY="11.0" mnemonicParsing="false" onAction="#btnRegresarActionEvent" prefHeight="66.0" prefWidth="91.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="RETURN" textFill="WHITE" AnchorPane.rightAnchor="41.0">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
