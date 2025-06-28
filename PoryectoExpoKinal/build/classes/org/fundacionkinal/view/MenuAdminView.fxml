@@ -20,7 +20,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="284.0" prefWidth="1185.0">
                      <children>
-                        <Button fx:id="btnEmpleado" contentDisplay="TOP" layoutY="8.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="160.0" styleClass="label-textField" text="EMPLEADOS">
+                        <Button fx:id="btnEmpleados" contentDisplay="TOP" layoutY="8.0" mnemonicParsing="false" onAction="#clickManejadorEventos" prefHeight="90.0" prefWidth="160.0" styleClass="label-textField" text="EMPLEADOS">
                            <graphic>
                               <ImageView fitHeight="133.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -33,7 +33,7 @@
                               <URL value="@../../../../../../../Downloads/ProyectoFinal2021691VetFXApp/ProyectoFinal2021691VetFXApp/src/org/iosefsuarez/resource/clienteview.css" />
                            </stylesheets>
                         </Button>
-                        <Button fx:id="btnCompra" contentDisplay="TOP" layoutX="193.0" layoutY="8.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="160.0" styleClass="label-textField" text="COMPRAS">
+                        <Button fx:id="btnCompras" contentDisplay="TOP" layoutX="193.0" layoutY="8.0" mnemonicParsing="false" onAction="#clickManejadorEventos" prefHeight="90.0" prefWidth="160.0" styleClass="label-textField" text="COMPRAS">
                            <graphic>
                               <ImageView fitHeight="133.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -54,7 +54,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="417.0" prefWidth="1185.0">
                      <children>
-                        <Button fx:id="btnMedicamento" alignment="CENTER" contentDisplay="TOP" layoutX="21.0" layoutY="14.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="160.0" styleClass="label-textField" text="PRODUCTOS">
+                        <Button fx:id="btnProductos" alignment="CENTER" contentDisplay="TOP" layoutX="21.0" layoutY="14.0" mnemonicParsing="false" onAction="#clickManejadorEventos" prefHeight="90.0" prefWidth="160.0" styleClass="label-textField" text="PRODUCTOS">
                            <graphic>
                               <ImageView fitHeight="132.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -83,12 +83,12 @@
       </TabPane>
       <MenuBar prefHeight="25.0" prefWidth="1282.0">
         <menus>
-          <Menu mnemonicParsing="false" text="CERRAR SESION">
+          <Menu fx:id="itmCerrar" mnemonicParsing="false" onAction="#clickManejadorEventos" text="CERRAR SESION">
             <items>
               <MenuItem mnemonicParsing="false" text="Close" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="AYUDA">
+          <Menu fx:id="itmAcercaDe" mnemonicParsing="false" onAction="#clickManejadorEventos" text="AYUDA">
             <items>
               <MenuItem mnemonicParsing="false" text="Acerca de nosotros" />
             </items>
