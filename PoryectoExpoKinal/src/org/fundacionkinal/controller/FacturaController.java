@@ -166,27 +166,27 @@ public class FacturaController implements Initializable {
         });
     }
     
-    public void cargarDatos() {
-        listaFacturas = FXCollections.observableArrayList(listarMascotas());
-        tablaFacturas.setItems(listaFacturas);
-        if (!listaFacturas.isEmpty()) {
-            tablaFacturas.getSelectionModel().selectFirst();
-            getFacturaTextFiel();
-        }
-    }
+//    public void cargarDatos() {
+//        listaFacturas = FXCollections.observableArrayList(listarMascotas());
+//        tablaFacturas.setItems(listaFacturas);
+//        if (!listaFacturas.isEmpty()) {
+//            tablaFacturas.getSelectionModel().selectFirst();
+//            getFacturaTextFiel();
+//        }
+//    }
     
-    public void getFacturaTextFiel() {
-        Factura facturaSeleccionada = tablaFacturas.getSelectionModel().getSelectedItem();
-        if (facturaSeleccionada != null) {
-            txtId.setText(String.valueOf(facturaSeleccionada.getIdFactura()));
-            txtCantidad.setText(String.valueOf(facturaSeleccionada.getIdCompra()));
-            dpFecha.setValue(LofacturaSeleccionada.getFecha());
-            txtTotal.setText(String.valueOf(facturaSeleccionada.getTotal()));
-
-            seleccionarRadioButtonMetodoPago(facturaSeleccionada.getMetodoPago());
-            seleccionarProducto(facturaSeleccionada.getIdCompra());
-        }
-    }
+//    public void getFacturaTextFiel() {
+//        Factura facturaSeleccionada = tablaFacturas.getSelectionModel().getSelectedItem();
+//        if (facturaSeleccionada != null) {
+//            txtId.setText(String.valueOf(facturaSeleccionada.getIdFactura()));
+//            txtCantidad.setText(String.valueOf(facturaSeleccionada.getIdCompra()));
+//            dpFecha.setValue(LofacturaSeleccionada.getFecha());
+//            txtTotal.setText(String.valueOf(facturaSeleccionada.getTotal()));
+//
+//            seleccionarRadioButtonMetodoPago(facturaSeleccionada.getMetodoPago());
+//            seleccionarProducto(facturaSeleccionada.getIdCompra());
+//        }
+//    }
     
     private void seleccionarRadioButtonMetodoPago(String metodoPago) {
         tgMetodoPago.getToggles().forEach(toggle -> {
@@ -214,15 +214,15 @@ public class FacturaController implements Initializable {
             CallableStatement stmt = conexion.prepareCall(sql);
             ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()) {
-                facturas.add(new Factura(
-                        rs.getInt("ID"),
-                        rs.getTimestamp("FECHA DE EMISION"),
-                        rs.getString("METODO DE PAGO"),
-                        rs.getInt("CANTIDAD"),
-                        rs.getDouble("TOTAL")
-                ));
-            }
+//            while (rs.next()) {
+//                facturas.add(new Factura(
+//                        rs.getInt("ID"),
+//                        rs.getTimestamp("FECHA DE EMISION"),
+//                        rs.getString("METODO DE PAGO"),
+//                        rs.getInt("CANTIDAD"),
+//                        rs.getDouble("TOTAL")
+//                ));
+//            }
         } catch (SQLException e) {
             mostrarAlerta("Error al cargar mascotas: " + e.getMessage());
         }
