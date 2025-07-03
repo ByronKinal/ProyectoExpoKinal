@@ -125,6 +125,19 @@ create table AuditoriaPagos(
 		references Compras(idCompra) on delete cascade
 );
 
+CREATE TABLE AuditoriaProductos (
+    idAuditoriaProducto INT AUTO_INCREMENT PRIMARY KEY,
+    idProducto INT NOT NULL,
+    precio_anterior DECIMAL(10,2),
+    precio_nuevo DECIMAL(10,2),
+    stock_anterior INT,
+    stock_nuevo INT,
+    fecha_cambio DATETIME DEFAULT NOW(),
+    descripcion VARCHAR(255),
+    FOREIGN KEY (idProducto) REFERENCES Productos(idProducto) ON DELETE CASCADE
+);
+
+
 -- -----------------------------------------------------------------------------------------------------------CRUD--------------------------------------------------------------------------------------------------------------------
 
 -- CRUD USUARIOS
@@ -371,11 +384,10 @@ create procedure sp_ActualizarDetalleCompras(
 	begin
 		update DetalleCompras
 			set
-				idProducto = p_idProducto,
                 cantidad = p_cantidad,
 				subtotal = p_subtotal
             where 
-				p_idCompra = idCompra;
+				 idCompra = p_idCompra and idProducto = p_idProducto;
 		
 	end;
 $$
@@ -393,6 +405,26 @@ create procedure sp_EliminarDetalleCompras(in p_idCompras int)
 $$
 DELIMITER ;
 -- call sp_EliminarDetalleCompras(2);
+
+ DELIMITER $$
+CREATE PROCEDURE sp_ReporteVentas(
+    IN p_fechaInicio DATE,
+    IN p_fechaFin DATE)
+BEGIN
+    SELECT 
+        c.idCompra,
+        u.nombreUsuario AS cliente,
+        COUNT(dc.idProducto) AS productos,
+        SUM(dc.subtotal) AS total,
+        c.fechaCompra
+    FROM Compras c
+    JOIN Usuarios u ON c.idCliente = u.idUsuario
+    JOIN DetalleCompras dc ON c.idCompra = dc.idCompra
+    WHERE c.fechaCompra BETWEEN p_fechaInicio AND p_fechaFin
+    AND c.estadoCompra = 'Completada'
+    GROUP BY c.idCompra;
+END$$
+DELIMITER ;
  
  -- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- CRUD PAGOS
@@ -433,12 +465,19 @@ create procedure sp_ActualizarPagos(
 		in p_cantidad decimal(10,2),
 		in p_idCompra int)
 	begin
+		if not exists 
+        (select 1 from Compras where idCompra = p_idCompra) 
+        then 
+        signal sqlstate '45000' 
+        set message_text = 'La compra no existe';
+        else
 		update Pagos
 			set
                 cantidad = p_cantidad,
 				idCompra = p_idCompra
             where 
-				p_idPago = idPago;
+				idPago = p_idPago;
+		end if;
 	end;
 $$
 DELIMITER ;
@@ -510,6 +549,7 @@ create procedure sp_ActualizarFactura(
 			set
                 total = p_total,
 				metodoPago = p_metodoPago,
+                idCliente = p_idCliente,
                 idEmpleado = p_idEmpleado,
                 idCompra = p_idCompra,
                 idPago = p_idPago
@@ -859,3 +899,78 @@ delimiter $$
 	end$$
 delimiter ;
 -- call sp_ListarFactura;
+
+-- Triggers faltantes ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+DELIMITER $$
+CREATE TRIGGER tr_ActualizarEstadoPago_after_insert
+AFTER INSERT ON Pagos
+FOR EACH ROW
+BEGIN
+    DECLARE total_pagado DECIMAL(10,2);
+    DECLARE total_compra DECIMAL(10,2);
+    
+    -- Calcular el total pagado para esta compra
+    SELECT SUM(cantidad) INTO total_pagado 
+    FROM Pagos 
+    WHERE idCompra = NEW.idCompra;
+    
+    -- Calcular el total de la compra
+    SELECT SUM(subtotal) INTO total_compra
+    FROM DetalleCompras
+    WHERE idCompra = NEW.idCompra;
+    
+    -- Actualizar estado de pago
+    IF total_pagado >= total_compra THEN
+        UPDATE Compras 
+        SET estadoPago = 'Pagado'
+        WHERE idCompra = NEW.idCompra;
+    END IF;
+END$$
+DELIMITER ;
+-- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+DELIMITER $$
+CREATE TRIGGER tr_ActualizarEstadoCompra_after_update
+AFTER UPDATE ON Compras
+FOR EACH ROW
+BEGIN
+    IF NEW.estadoPago = 'Pagado' AND OLD.estadoPago != 'Pagado' THEN
+        UPDATE Compras
+        SET estadoCompra = 'Completada'
+        WHERE idCompra = NEW.idCompra;
+    END IF;
+END$$
+DELIMITER ;
+4. Trigger para Registrar Cambios en Productos (Auditoría)
+sql
+DELIMITER $$
+CREATE TRIGGER tr_AuditoriaProductos_after_update
+AFTER UPDATE ON Productos
+FOR EACH ROW
+BEGIN
+    IF OLD.precioProducto != NEW.precioProducto OR OLD.stockProducto != NEW.stockProducto THEN
+        INSERT INTO AuditoriaProductos (
+            idProducto, 
+            precio_anterior, 
+            precio_nuevo, 
+            stock_anterior, 
+            stock_nuevo, 
+            fecha_cambio,
+            descripcion
+        )
+        VALUES (
+            NEW.idProducto,
+            OLD.precioProducto,
+            NEW.precioProducto,
+            OLD.stockProducto,
+            NEW.stockProducto,
+            NOW(),
+            CONCAT('Cambio en producto ', NEW.nombreProducto)
+        );
+    END IF;
+END$$
+DELIMITER ;
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
