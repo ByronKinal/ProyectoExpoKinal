@@ -17,9 +17,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../resource/empleadoview.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fundacionkinal.controller.FacturaController">
+<AnchorPane id="AnchorPane" prefHeight="1099.0" prefWidth="1920.0" stylesheets="@../resource/facturaview.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fundacionkinal.controller.FacturaController">
     <children>
-        <GridPane alignment="TOP_CENTER" layoutX="21.0" layoutY="97.0" prefHeight="347.0" prefWidth="1027.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="21.0">
+        <GridPane alignment="TOP_CENTER" layoutX="21.0" layoutY="110.0" prefHeight="347.0" prefWidth="1027.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="20.59999999999991">
             <columnConstraints>
                 <ColumnConstraints />
                 <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="565.0" minWidth="0.0" prefWidth="290.0" />
@@ -27,21 +27,22 @@
             <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="793.0" minWidth="0.0" prefWidth="737.0" />
             </columnConstraints>
             <rowConstraints>
+                <RowConstraints />
                 <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="71.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="71.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label GridPane.columnIndex="1" />
-                <Label GridPane.columnIndex="1">
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <rotationAxis>
                         <Point3D x="2.0" z="1.0" />
                     </rotationAxis>
                 </Label>
-                <TextField fx:id="txtCodigo" prefHeight="36.0" prefWidth="375.0" GridPane.columnIndex="2" />
-                <GridPane prefHeight="49.0" prefWidth="375.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                <TextField fx:id="txtCodigo" prefHeight="36.0" prefWidth="375.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <GridPane prefHeight="49.0" prefWidth="375.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
                     <columnConstraints>
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="102.0" />
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="102.0" />
@@ -51,7 +52,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#cambiarCancelarEliminar" prefHeight="34.0" prefWidth="85.0" text="ELIMINAR" textFill="WHITE" GridPane.columnIndex="2">
+                        <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#cambiarCancelarEliminar" prefHeight="34.0" prefWidth="91.0" text="ELIMINAR" textFill="WHITE" GridPane.columnIndex="2">
                             <font>
                                 <Font name="System Bold Italic" size="12.0" />
                             </font>
@@ -60,7 +61,7 @@
                                 <String fx:value="label-textField" />
                             </styleClass>
                         </Button>
-                        <Button fx:id="btnAgregar" mnemonicParsing="false" onAction="#cambiarNuevoFactura" prefHeight="34.0" prefWidth="85.0" text="AGREGAR" textFill="WHITE">
+                        <Button fx:id="btnAgregar" mnemonicParsing="false" onAction="#cambiarNuevoFactura" prefHeight="34.0" prefWidth="92.0" text="AGREGAR" textFill="WHITE">
                             <font>
                                 <Font name="System Bold Italic" size="12.0" />
                             </font>
@@ -71,7 +72,7 @@
                         </Button>
                     </children>
                 </GridPane>
-                <Label prefHeight="17.0" prefWidth="150.0" text="CODIGO" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                <Label prefHeight="17.0" prefWidth="150.0" text="CODIGO" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                     <rotationAxis>
                         <Point3D x="2.0" z="1.0" />
                     </rotationAxis>
@@ -79,7 +80,7 @@
                         <Insets />
                     </GridPane.margin>
                 </Label>
-                <Label prefHeight="17.0" prefWidth="150.0" text="PRODUCTO" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                <Label prefHeight="17.0" prefWidth="150.0" text="PRODUCTO" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                     <rotationAxis>
                         <Point3D x="2.0" z="1.0" />
                     </rotationAxis>
@@ -87,22 +88,22 @@
                         <Insets />
                     </GridPane.margin>
                 </Label>
-                <Label />
-                <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="150.0" text="CANTIDAD" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                <Label GridPane.rowIndex="1" />
+                <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="150.0" text="CANTIDAD" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                     <GridPane.margin>
                         <Insets />
                     </GridPane.margin>
                 </Label>
-                <TextField fx:id="txtProducto" prefHeight="36.0" prefWidth="375.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                <TextField fx:id="txtCantidad" prefHeight="36.0" prefWidth="375.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                <Label prefHeight="17.0" prefWidth="150.0" text="PRECIO" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                <TextField fx:id="txtProducto" prefHeight="36.0" prefWidth="375.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <TextField fx:id="txtCantidad" prefHeight="36.0" prefWidth="375.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                <Label prefHeight="17.0" prefWidth="150.0" text="PRECIO" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                     <GridPane.margin>
                         <Insets />
                     </GridPane.margin>
                 </Label>
-                <TextField fx:id="txtPrecio" prefHeight="36.0" prefWidth="375.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Button fx:id="btnFinalizar" mnemonicParsing="false" onAction="#FinalizarPedido" text="FINALIZAR PEDIDO" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
-              <Button fx:id="btnRegresar" mnemonicParsing="false" onAction="#btnRegresarActionEvent" text="REGRESAR" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                <TextField fx:id="txtPrecio" prefHeight="36.0" prefWidth="375.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Button fx:id="btnFinalizar" mnemonicParsing="false" onAction="#FinalizarPedido" text="FINALIZAR PEDIDO" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+              <Button fx:id="btnRegresar" mnemonicParsing="false" onAction="#btnRegresarActionEvent" text="REGRESAR" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
             </children>
             <stylesheets>
                 <URL value="@../resource/facturaview.css" />
@@ -135,17 +136,17 @@
                 <String fx:value="label" />
             </styleClass>
         </TableView>
-        <Label layoutX="101.0" layoutY="14.0" prefHeight="58.0" prefWidth="196.0" styleClass="label-title" stylesheets="@../resource/comprasview.css" text="CAJA KINAL" AnchorPane.leftAnchor="101.0">
+        <Label layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="12.0" />
+        <Label layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="97.0" />
+        <Label layoutX="121.0" layoutY="28.0" prefHeight="58.0" prefWidth="196.0" styleClass="label-title" stylesheets="@../resource/comprasview.css" text="CAJA KINAL">
             <font>
                 <Font name="Bell MT" size="33.0" />
             </font>
         </Label>
-        <ImageView fitHeight="72.0" fitWidth="87.0" layoutX="21.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="21.0">
-            <image>
-                <Image url="@../image/FACTURASS.png" />
-            </image>
-        </ImageView>
-        <Label layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="12.0" />
-        <Label layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="97.0" />
+      <ImageView fitHeight="86.0" fitWidth="86.0" layoutX="22.0" layoutY="14.0" preserveRatio="true">
+         <image>
+            <Image url="@../image/Logo.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

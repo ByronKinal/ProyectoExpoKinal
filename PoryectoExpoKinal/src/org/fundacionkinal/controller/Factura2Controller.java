@@ -104,6 +104,7 @@ public class Factura2Controller implements Initializable {
         txtSubtotal.setText(String.format("%.2f", subtotal));
         double total = subtotal * 1.12;
         txtTotal.setText(String.format("%.2f", total));
+        
     }
 
     @FXML

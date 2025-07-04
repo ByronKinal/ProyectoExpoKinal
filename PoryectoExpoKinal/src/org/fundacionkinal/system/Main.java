@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.fundacionkinal.controller.ComprasController;
 import org.fundacionkinal.controller.EmpleadoController;
@@ -32,7 +33,9 @@ public class Main extends Application {
     @Override
     public void start(Stage escenarioPrincipal) throws Exception {
         this.escenarioPrincipal = escenarioPrincipal;
-        escenarioPrincipal.setTitle("SISTEMA DE CAJERO");
+        escenarioPrincipal.setTitle("CAJA KINAL");
+        Image icono = new javafx.scene.image.Image("/org/fundacionkinal/image/Logo.png");
+        escenarioPrincipal.getIcons().add(icono);
         getLoginView();
         escenarioPrincipal.show();
     }
