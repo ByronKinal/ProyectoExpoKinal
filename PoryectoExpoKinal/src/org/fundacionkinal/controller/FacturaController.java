@@ -53,7 +53,6 @@ public class FacturaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        crearNuevaCompra();
         deshabilitarControles();
         txtCodigo.setDisable(false);
         setFormatoColumnaModelo();
@@ -66,29 +65,6 @@ public class FacturaController implements Initializable {
         });
     }
 
-    private void crearNuevaCompra() {
-        try {
-            Connection conexion = Conexion.getInstancia().getConexion();
-            Statement stmt = conexion.createStatement();
-
-            stmt.executeUpdate("INSERT INTO Compras(estadoCompra, estadoPago) VALUES ('Pendiente', 'Pendiente')",
-                    Statement.RETURN_GENERATED_KEYS);
-
-            ResultSet generatedKeys = stmt.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                idCompraActual = generatedKeys.getInt(1);
-                System.out.println("Nueva compra creada con ID: " + idCompraActual);
-            } else {
-                mostrarAlerta("No se pudo obtener el ID de la nueva compra");
-            }
-
-            generatedKeys.close();
-            stmt.close();
-        } catch (SQLException e) {
-            mostrarAlerta("Error al crear nueva compra: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
 
     public void setFormatoColumnaModelo() {
         colId.setCellValueFactory(new PropertyValueFactory<>("idProducto"));

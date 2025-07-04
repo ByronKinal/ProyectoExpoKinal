@@ -1040,3 +1040,15 @@ call sp_ListarDetalleCompras();
 -- call sp_AgregarFactura("Efectivo",1,1,1);
 call sp_ListarFactura();
 -- call sp_AgregarCliente('Luis','224647202',1, 545);
+
+delimiter //
+create procedure sp_listarComprasView()
+    begin
+		SELECT c.idCompra AS COMPRA, c.estadoCompra AS ESTADO_COMPRA, 
+			c.estadoPago AS ESTADO_PAGO, c.fechaCompra AS FECHA, 
+			COALESCE(SUM(dc.subtotal * 1.12), 0) AS TOTAL  
+            FROM Compras c 
+            LEFT JOIN DetalleCompras dc ON c.idCompra = dc.idCompra 
+            GROUP BY c.idCompra, c.estadoCompra, c.estadoPago, c.fechaCompra;
+	end//
+delimiter ;
