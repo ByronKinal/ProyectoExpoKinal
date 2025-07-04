@@ -69,8 +69,8 @@ Este documento contiene los reportes diarios de avances, logros e incidencias du
   - Ajustes menores en las vistas.  
 - **Anderson Sosa**:  
   - **Incumplimientos**:  
-    - No agregó colores ni CSS.  
-    - No creó el diagrama de commits con Byron.  
+    - No agregó colores ni CSS. (Por falla de computadora no aviso antes)
+    - No creó el diagrama de commits con Byron. (Por falla de computadora no aviso antes)
 
 **25 de junio**  
 - **Roger Suárez**:  
@@ -106,13 +106,21 @@ Este documento contiene los reportes diarios de avances, logros e incidencias du
   - Diagrama de commits no realizado.  
 - **Estructura de commits no entregada**: Dennys Morales.  
 
-
-
-
 **30 de junio**  
 - **Byron Pineda**:  
   - Reunión para revisar modificaciones y abordar la situación de los compañeros inactivos o que no aportaron.  
 
+**1 de junio**  
+- **Marcos García**:  
+  - Modificacion de Trigger y revision de la base de datos.
 
 
-Este README resume el progreso del proyecto y las contribuciones individuales. Para más detalles, consulta los reportes completos.
+**2 de junio**  
+-  **Anderson Sosa**:  
+  - Modificacion de la vistas en la vista principal para la factura
+
+**3 de junio**  
+- **Dennys Morales**:  
+  - **Entrega de los codigos para los productos**: No entregado.
+- **Iosef Suarez , Roger Valladares**:  
+  - Contruyeron la maqueta para el cajero. 
