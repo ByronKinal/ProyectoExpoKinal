@@ -360,18 +360,18 @@ DELIMITER ;
 
 -- READ
 DELIMITER $$
-create procedure sp_ListarCompras()
-    begin
-		select 
-        idCompra as COMPRA,
-        estadoCompra as ESTADO_COMPRA,
-        estadoPago as ESTADO_PAGO,
-        fechaCompra as FECHA
-        from Compras;
-    end;
-$$
+CREATE PROCEDURE sp_ListarCompras()
+BEGIN
+    SELECT 
+        c.idCompra AS COMPRA,
+        (SELECT SUM(subtotal) FROM DetalleCompras WHERE idCompra = c.idCompra) * 1.12 AS TOTAL,
+        c.estadoCompra AS ESTADO_COMPRA,
+        c.estadoPago AS ESTADO_PAGO,
+        c.fechaCompra AS FECHA
+    FROM Compras c;
+END$$
 DELIMITER ;
-call sp_ListarCompras();
+call sp_ListarCompras();	
 
 -- UPDATE
 DELIMITER $$

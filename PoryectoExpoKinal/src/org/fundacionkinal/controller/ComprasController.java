@@ -144,6 +144,7 @@ public class ComprasController implements Initializable {
             while (rs.next()) {
                 compras.add(new Compra(
                         rs.getInt("COMPRA"),
+                        rs.getDouble("TOTAL"),
                         rs.getString("ESTADO_COMPRA"),
                         rs.getString("ESTADO_PAGO"),
                         rs.getTimestamp("FECHA").toLocalDateTime()

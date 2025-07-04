@@ -53,7 +53,6 @@ public class FacturaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        crearNuevaCompra();
         deshabilitarControles();
         txtCodigo.setDisable(false);
         setFormatoColumnaModelo();
@@ -164,11 +163,9 @@ public class FacturaController implements Initializable {
     @FXML
     public void agregarProducto() {
         try {
-            if (idCompraActual <= 0) {
-                mostrarAlerta("No hay una compra válida asociada");
-                return;
-            }
 
+            crearNuevaCompra();
+            
             String codigo = txtCodigo.getText();
             Connection conexion = Conexion.getInstancia().getConexion();
 
