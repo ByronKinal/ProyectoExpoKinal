@@ -360,18 +360,18 @@ DELIMITER ;
 
 -- READ
 DELIMITER $$
-create procedure sp_ListarCompras()
-    begin
-		select 
-        idCompra as COMPRA,
-        estadoCompra as ESTADO_COMPRA,
-        estadoPago as ESTADO_PAGO,
-        fechaCompra as FECHA
-        from Compras;
-    end;
-$$
+CREATE PROCEDURE sp_ListarCompras()
+BEGIN
+    SELECT 
+        c.idCompra AS COMPRA,
+        (SELECT SUM(subtotal) FROM DetalleCompras WHERE idCompra = c.idCompra) * 1.12 AS TOTAL,
+        c.estadoCompra AS ESTADO_COMPRA,
+        c.estadoPago AS ESTADO_PAGO,
+        c.fechaCompra AS FECHA
+    FROM Compras c;
+END$$
 DELIMITER ;
-call sp_ListarCompras();
+call sp_ListarCompras();	
 
 -- UPDATE
 DELIMITER $$
@@ -1018,9 +1018,16 @@ call sp_AgregarUsuario("Iosef","is","is","Empleado");
 
 call sp_ListarUsuario();
 
-call sp_AgregarProducto('Tortrix','1.5',10,'A-0010-Z');
-call sp_AgregarProducto('Pikaron','2',15,'A-0030-Z');
-call sp_AgregarProducto('Cheto','3.5',30,'A-0040-Z');
+call sp_AgregarProducto('Tortrix de limón','2.00',30,'10003');
+call sp_AgregarProducto('Galleta club extra','1.00',30,'10002');
+call sp_AgregarProducto('Diccionario básico','30.00',30,'10011');
+call sp_AgregarProducto('Botella pequeña de alcohol','3.00',30,'1000');
+call sp_AgregarProducto('Botella de agua pura cielo','2.00',30,'10008');
+call sp_AgregarProducto('botella de té fuze tea','3.5',30,'10005');
+call sp_AgregarProducto('Botella de refresco rica roja','2.5',30,'10014');
+call sp_AgregarProducto('Bolsa de sal yodada','1.00',30,'10007');
+call sp_AgregarProducto('Chobix de barbacoa','1.00',30,'10004');
+call sp_AgregarProducto('Tortrix picante','2.00',30,'10006');
 call sp_ListarProductos();
 
 -- call sp_AgregarCompra('Pendiente','Pagado');
@@ -1040,15 +1047,3 @@ call sp_ListarDetalleCompras();
 -- call sp_AgregarFactura("Efectivo",1,1,1);
 call sp_ListarFactura();
 -- call sp_AgregarCliente('Luis','224647202',1, 545);
-
-delimiter //
-create procedure sp_listarComprasView()
-    begin
-		SELECT c.idCompra AS COMPRA, c.estadoCompra AS ESTADO_COMPRA, 
-			c.estadoPago AS ESTADO_PAGO, c.fechaCompra AS FECHA, 
-			COALESCE(SUM(dc.subtotal * 1.12), 0) AS TOTAL  
-            FROM Compras c 
-            LEFT JOIN DetalleCompras dc ON c.idCompra = dc.idCompra 
-            GROUP BY c.idCompra, c.estadoCompra, c.estadoPago, c.fechaCompra;
-	end//
-delimiter ;

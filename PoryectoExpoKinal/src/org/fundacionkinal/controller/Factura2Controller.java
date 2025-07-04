@@ -21,7 +21,7 @@ import org.fundacionkinal.system.Main;
 public class Factura2Controller implements Initializable {
 
     @FXML
-    private Button btnRegresar, btnPagar, btnEnviar, btnCancelar;
+    private Button  btnPagar, btnEnviar, btnCancelar;
     @FXML
     private TextField txtCliente, txtSubtotal, txtTotal;
     @FXML
@@ -104,7 +104,6 @@ public class Factura2Controller implements Initializable {
         txtSubtotal.setText(String.format("%.2f", subtotal));
         double total = subtotal * 1.12;
         txtTotal.setText(String.format("%.2f", total));
-        
     }
 
     @FXML
@@ -149,7 +148,7 @@ public class Factura2Controller implements Initializable {
 
                 mostrarMensaje("","Pago registrado y factura generada exitosamente");
                 principal.getFacturaView();
-
+                
             } catch (SQLException e) {
                 mostrarAlerta("Error al registrar pago: " + e.getMessage());
                 e.printStackTrace();
@@ -168,11 +167,6 @@ public class Factura2Controller implements Initializable {
         } catch (SQLException e) {
             mostrarAlerta("Error al cancelar pedido: " + e.getMessage());
         }
-    }
-
-    @FXML
-    private void btnRegresarActionEvent() {
-        principal.getFacturaView();
     }
 
     private boolean validarCampos() {

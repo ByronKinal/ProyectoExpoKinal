@@ -113,7 +113,7 @@ public class Main extends Application {
     public void getFactura2View() {
     try {
         Factura2Controller control
-                = (Factura2Controller) cambiarEscena("Factura2View.fxml", 1920, 1080);
+                = (Factura2Controller) cambiarEscena("Factura2View.fxml", 1920, 1000);
         control.setPrincipal(this);
     } catch (Exception ex) {
         System.out.println("Error al ir a facturas: " + ex.getMessage());
