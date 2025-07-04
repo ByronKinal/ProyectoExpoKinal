@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1000.0" styleClass="root" stylesheets="@../resource/facturaview.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fundacionkinal.controller.ComprasController">
+   <children>
+      <TableView fx:id="tablaCompras" layoutX="27.0" layoutY="330.0" prefHeight="341.0" prefWidth="932.0" stylesheets="@../resource/facturaview.css" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="41.0">
+         <columns>
+            <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="colTotal" prefWidth="139.0" text="TOTAL" />
+            <TableColumn fx:id="colEstadoCompra" prefWidth="208.0" text="ESTADO DE COMPRA" />
+            <TableColumn fx:id="colEstadoPago" prefWidth="196.0" text="ESTADO DE PAGO" />
+            <TableColumn fx:id="colFecha" prefWidth="191.0" text="FECHA" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <GridPane layoutX="27.0" layoutY="96.0" prefHeight="219.0" prefWidth="932.0" styleClass="grid-pane" stylesheets="@../resource/facturaview.css" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="41.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="156.0" minWidth="10.0" prefWidth="138.0" />
+            <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="SOMETIMES" maxWidth="331.0" minWidth="10.0" prefWidth="299.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="0.0" prefWidth="90.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="108.0" />
+            <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="404.0" minWidth="10.0" prefWidth="297.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints maxHeight="62.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="92.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="116.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="116.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label text="ID" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtId" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="FECHA" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label text="TOTAL" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label text="ESTADO COMPRA" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtTotal" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <DatePicker fx:id="dpFecha" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button fx:id="btnReporte" mnemonicParsing="false" prefHeight="34.0" prefWidth="91.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="REPORTE" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="4">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Button>
+            <Label text="ESTADO PAGO" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="296.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <children>
+                  <RadioButton fx:id="rbPendienteCompra" alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="103.0" text="PENDIENTE">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="tgEstadoCompra" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="rbCompletada" mnemonicParsing="false" prefHeight="17.0" prefWidth="120.0" text="COMPLETADA" toggleGroup="$tgEstadoCompra" />
+                  <RadioButton fx:id="rbCancelada" mnemonicParsing="false" prefHeight="17.0" prefWidth="96.0" text="CANCELADA" toggleGroup="$tgEstadoCompra" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+               <children>
+                  <RadioButton fx:id="rbPendientePago" alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="97.0" text="PENDIENTE">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="tgEstadoPago" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="rbPagado" mnemonicParsing="false" prefHeight="17.0" prefWidth="91.0" text="PAGADO" toggleGroup="$tgEstadoPago" />
+               </children>
+            </HBox>
+         </children>
+      </GridPane>
+      <ImageView fitHeight="66.0" fitWidth="79.0" layoutX="34.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="34.0">
+         <image>
+            <Image url="@../image/COMPRASS.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="106.0" layoutY="14.0" prefHeight="66.0" prefWidth="157.0" styleClass="label-title" stylesheets="@../resource/facturaview.css" text="COMPRA" AnchorPane.leftAnchor="106.0">
+         <font>
+            <Font name="Bell MT" size="30.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="0.9431279620853081" endY="0.41706161137440756" startX="0.95260663507109" startY="0.7582938388625593">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.9868420958518982" green="0.4655519127845764" blue="0.24214181303977966" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
+      <Button fx:id="btnRegresar" contentDisplay="TOP" layoutX="868.0" layoutY="11.0" mnemonicParsing="false" onAction="#btnRegresarActionEvent" prefHeight="66.0" prefWidth="91.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="RETURN" textFill="WHITE" AnchorPane.rightAnchor="41.0">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/menua.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>
