@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fundacionkinal.controller.Factura2Controller">
+    <children>
+        <AnchorPane id="AnchorPane" layoutX="10.0" layoutY="10.0" minHeight="1200.0" minWidth="1200.0" prefHeight="1920.0" prefWidth="1080.0" stylesheets="@../resource/empleadoview.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <GridPane alignment="TOP_CENTER" layoutX="325.0" layoutY="94.0" prefHeight="1080.0" prefWidth="1252.0" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="368.0" AnchorPane.topAnchor="94.0">
+                    <columnConstraints>
+                        <ColumnConstraints />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="64.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="314.0" minWidth="10.0" prefWidth="254.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="491.0" minWidth="10.0" prefWidth="491.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="388.0" minWidth="7.0" prefWidth="181.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="162.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                  <RowConstraints maxHeight="160.0" minHeight="10.0" prefHeight="160.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="160.0" minHeight="10.0" prefHeight="160.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="160.0" minHeight="10.0" prefHeight="160.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="160.0" minHeight="10.0" prefHeight="160.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="160.0" minHeight="10.0" prefHeight="160.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="160.0" minHeight="10.0" prefHeight="160.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="160.0" minHeight="10.0" prefHeight="160.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label text="NIT" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                            <rotationAxis>
+                                <Point3D x="2.0" z="1.0" />
+                            </rotationAxis>
+                        </Label>
+                        <Label GridPane.columnIndex="2" GridPane.rowIndex="1">
+                            <rotationAxis>
+                                <Point3D x="2.0" z="1.0" />
+                            </rotationAxis>
+                        </Label>
+                        <Label prefHeight="17.0" prefWidth="60.0" text="EMPLEADO" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                            <rotationAxis>
+                                <Point3D x="2.0" z="1.0" />
+                            </rotationAxis>
+                        </Label>
+                        <Label prefHeight="17.0" prefWidth="61.0" text="SUBTOTAL" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                            <rotationAxis>
+                                <Point3D x="2.0" z="1.0" />
+                            </rotationAxis>
+                        </Label>
+                        <TextField fx:id="txtCliente" prefHeight="36.0" prefWidth="220.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <Label prefHeight="17.0" prefWidth="94.0" text="MÉTODO DE PAGO" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                            <rotationAxis>
+                                <Point3D x="2.0" z="1.0" />
+                            </rotationAxis>
+                        </Label>
+                        <Label GridPane.rowIndex="1" />
+                        <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="130.0" text="TOTAL (CON IMPUESTOS)" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                        <TextField fx:id="txtSubtotal" prefHeight="36.0" prefWidth="220.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                        <TextField fx:id="txtTotal" prefHeight="36.0" prefWidth="220.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                        <ComboBox fx:id="cbEmpleado" prefHeight="36.0" prefWidth="540.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="276.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                            <children>
+                                <RadioButton fx:id="rbEfectivo" mnemonicParsing="false" text="EFECTIVO             ">
+                                    <toggleGroup>
+                                        <ToggleGroup fx:id="tgMetodoPago" />
+                                    </toggleGroup>
+                                </RadioButton>
+                                <RadioButton fx:id="rbTarjeta" mnemonicParsing="false" prefHeight="17.0" prefWidth="97.0" text="TARJETA">
+                                    <toggleGroup>
+                                        <ToggleGroup fx:id="tgMetodoPago" />
+                                    </toggleGroup>
+                                </RadioButton>
+                            </children>
+                        </HBox>
+                        <Button fx:id="btnPagar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pagar" prefHeight="100.0" prefWidth="130.0" text="PAGAR" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+                        <Button fx:id="btnEnviar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="130.0" text="ENVIAR FACTURA" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+                        <Button fx:id="btnCancelar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cancelarPedido" prefHeight="100.0" prefWidth="130.0" text="CANCELAR PEDIDO" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+                  <Button fx:id="btnRegresar" mnemonicParsing="false" onAction="#btnRegresarActionEvent" text="Regresar" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                  <Label text="NOMBRE" GridPane.columnIndex="2" />
+                  <Label text="NÚMERO" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <TextField fx:id="txtNombre" prefHeight="36.0" prefWidth="220.0" GridPane.columnIndex="3" />
+                  <TextField fx:id="txtNumero" prefHeight="36.0" prefWidth="220.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                    </children>
+                    <stylesheets>
+                        <URL value="@../resource/facturaview.css" />
+                        <URL value="@../resource/empleadoview.css" />
+                    </stylesheets>
+                    <styleClass>
+                        <String fx:value="label-textField" />
+                        <String fx:value="grid-pane" />
+                    </styleClass>
+                </GridPane>
+                <Label layoutX="101.0" layoutY="14.0" prefHeight="58.0" prefWidth="196.0" styleClass="label-title" stylesheets="@../resource/comprasview.css" text="CAJA KINAL" AnchorPane.leftAnchor="101.0">
+                    <font>
+                        <Font name="Bell MT" size="33.0" />
+                    </font>
+                </Label>
+                <ImageView fitHeight="72.0" fitWidth="87.0" layoutX="21.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="21.0">
+                    <image>
+                        <Image url="@../image/FACTURASS.png" />
+                    </image>
+                </ImageView>
+                <Label layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="12.0" />
+                <Label layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="97.0" />
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

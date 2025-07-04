@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 public class Compra {
     
     private int idCompra;
-    private int idCliente;
     private double total;
     private String estadoCompra;
     private String estadoPago;
@@ -19,25 +18,22 @@ public class Compra {
     public Compra() {
     }
 
-    public Compra(int idCompra, int idCliente, double total, String estadoCompra, String estadoPago, LocalDateTime fecha) {
+    public Compra(int idCompra, double total, String estadoCompra, String estadoPago, LocalDateTime fecha) {
         this.idCompra = idCompra;
-        this.idCliente = idCliente;
         this.total = total;
         this.estadoCompra = estadoCompra;
         this.estadoPago = estadoPago;
         this.fecha = fecha;
     }
 
-    public Compra(int idCompra, int idCliente, String estadoCompra, String estadoPago, LocalDateTime fecha) {
+    public Compra(int idCompra, String estadoCompra, String estadoPago, LocalDateTime fecha) {
         this.idCompra = idCompra;
-        this.idCliente = idCliente;
         this.estadoCompra = estadoCompra;
         this.estadoPago = estadoPago;
         this.fecha = fecha;
     }
 
-    public Compra(int idCliente, String estadoCompra, String estadoPago) {
-        this.idCliente = idCliente;
+    public Compra(String estadoCompra, String estadoPago) {
         this.estadoCompra = estadoCompra;
         this.estadoPago = estadoPago;
     }
@@ -56,14 +52,6 @@ public class Compra {
 
     public void setIdCompra(int idCompra) {
         this.idCompra = idCompra;
-    }
-
-    public int getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
     }
 
     public double getTotal() {
