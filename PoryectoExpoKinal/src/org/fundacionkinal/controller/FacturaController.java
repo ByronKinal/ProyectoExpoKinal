@@ -1,9 +1,8 @@
+
 package org.fundacionkinal.controller;
 
 import java.net.URL;
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -15,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.fundacionkinal.database.Conexion;
 import org.fundacionkinal.model.Factura;
+import org.fundacionkinal.model.Producto;
 import org.fundacionkinal.system.Main;
 
 /**
@@ -25,231 +25,217 @@ import org.fundacionkinal.system.Main;
 public class FacturaController implements Initializable {
 
     @FXML
-    private Button btnRegresar, btnAgregar, btnEditar, btnEliminar, btnReporte;
+    private Button btnRegresar, btnAgregar, btnEliminar, btnFinalizar;
 
     @FXML
-    private TableView<Factura> tablaFacturas;
+    private TableView<Producto> tablaProductos;
 
     @FXML
-    private TableColumn<Factura, Integer> colId;
+    private TableColumn<Producto, Integer> colId;
     @FXML
-    private TableColumn<Factura, LocalDate> colFecha;
+    private TableColumn<Producto, String> colCodigo;
     @FXML
-    private TableColumn<Factura, Double> colTotal;
+    private TableColumn<Producto, String> colProducto;
     @FXML
-    private TableColumn<Factura, String> colMetodoPago;
+    private TableColumn<Producto, Double> colPrecioUnitario;
     @FXML
-    private TableColumn<Factura, Integer> colCliente;
+    private TableColumn<Factura, Integer> colCantidad;
     @FXML
-    private TableColumn<Factura, Integer> colEmpleado;
-    @FXML
-    private TableColumn<Factura, Integer> colCompra;
-    @FXML
-    private TableColumn<Factura, Integer> colPago;
+    private TableColumn<Factura, Double> colSubtotal;
 
     @FXML
-    private TextField txtId, txtTotal, txtCantidad, txtCliente, txtEmpleado, txtCompra, txtPago;
-    @FXML
-    private DatePicker dpFecha;
-    @FXML
-    private ComboBox<String> cbCliente, cbEmpleado, cbCompra, cbPago;
-    @FXML
-    private ToggleGroup tgMetodoPago;
+    private TextField txtCodigo, txtProducto, txtPrecio, txtCantidad;
 
-    private ObservableList<Factura> listaFacturas;
+    private ObservableList<Producto> listaProductos;
     private Main principal;
-    private Factura modeloFactura;
-
-    private enum Acciones {
-        Agregar, Editar, Eliminar, Ninguna
-    };
-    private Acciones accion = Acciones.Ninguna;
+    private int idCompraActual;
+    private int cantidadActual = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        txtCantidad.setDisable(true);
+        crearNuevaCompra();
+        deshabilitarControles();
+        txtCodigo.setDisable(false);
         setFormatoColumnaModelo();
         cargarDatos();
-        tablaFacturas.setOnMouseClicked(event -> {
-            getFacturaTextFiel();
-            deshabilitarControles();
+
+        txtCodigo.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                buscarProductoPorCodigo(newValue);
+            }
         });
-        deshabilitarControles();
+    }
+
+    private void crearNuevaCompra() {
+        try {
+            Connection conexion = Conexion.getInstancia().getConexion();
+            Statement stmt = conexion.createStatement();
+
+            stmt.executeUpdate("INSERT INTO Compras(estadoCompra, estadoPago) VALUES ('Pendiente', 'Pendiente')",
+                    Statement.RETURN_GENERATED_KEYS);
+
+            ResultSet generatedKeys = stmt.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                idCompraActual = generatedKeys.getInt(1);
+                System.out.println("Nueva compra creada con ID: " + idCompraActual);
+            } else {
+                mostrarAlerta("No se pudo obtener el ID de la nueva compra");
+            }
+
+            generatedKeys.close();
+            stmt.close();
+        } catch (SQLException e) {
+            mostrarAlerta("Error al crear nueva compra: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public void setFormatoColumnaModelo() {
-        colId.setCellValueFactory(new PropertyValueFactory<>("idFactura"));
-        colFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
-        colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
-        colMetodoPago.setCellValueFactory(new PropertyValueFactory<>("metodoPago"));
-        colCliente.setCellValueFactory(new PropertyValueFactory<>("idCliente"));
-        colEmpleado.setCellValueFactory(new PropertyValueFactory<>("idEmpleado"));
-        colCompra.setCellValueFactory(new PropertyValueFactory<>("idCompra"));
-        colPago.setCellValueFactory(new PropertyValueFactory<>("idPago"));
+        colId.setCellValueFactory(new PropertyValueFactory<>("idProducto"));
+        colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigoBarras"));
+        colProducto.setCellValueFactory(new PropertyValueFactory<>("nombreProducto"));
+        colPrecioUnitario.setCellValueFactory(new PropertyValueFactory<>("precioProducto"));
+        colCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+        colSubtotal.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
     }
 
     public void cargarDatos() {
-        listaFacturas = FXCollections.observableArrayList(listarFacturas());
-        tablaFacturas.setItems(listaFacturas);
-        if (!listaFacturas.isEmpty()) {
-            tablaFacturas.getSelectionModel().selectFirst();
-            getFacturaTextFiel();
+        listaProductos = FXCollections.observableArrayList(listarProductosEnFactura());
+        tablaProductos.setItems(listaProductos);
+        if (!listaProductos.isEmpty()) {
+            tablaProductos.getSelectionModel().selectFirst();
         }
     }
 
-    public void getFacturaTextFiel() {
-        Factura facturaSeleccionada = tablaFacturas.getSelectionModel().getSelectedItem();
-        if (facturaSeleccionada != null) {
-            txtId.setText(String.valueOf(facturaSeleccionada.getIdFactura()));
-            dpFecha.setValue(facturaSeleccionada.getFecha().toLocalDate());
-            txtTotal.setText(String.valueOf(facturaSeleccionada.getTotal()));
-            seleccionarMetodoPago(facturaSeleccionada.getMetodoPago());
-            txtCliente.setText(String.valueOf(facturaSeleccionada.getIdCliente()));
-            txtEmpleado.setText(String.valueOf(facturaSeleccionada.getIdEmpleado()));
-            txtCompra.setText(String.valueOf(facturaSeleccionada.getIdCompra()));
-            txtPago.setText(String.valueOf(facturaSeleccionada.getIdPago()));
-        }
-    }
-
-    private void seleccionarMetodoPago(String metodo) {
-        tgMetodoPago.getToggles().forEach(toggle -> {
-            RadioButton rb = (RadioButton) toggle;
-            if (metodo.equalsIgnoreCase("Tarjeta") && rb.getText().equalsIgnoreCase("TARJETA")) {
-                tgMetodoPago.selectToggle(toggle);
-            } else if (metodo.equalsIgnoreCase("Efectivo") && rb.getText().equalsIgnoreCase("EFECTIVO")) {
-                tgMetodoPago.selectToggle(toggle);
-            }
-        });
-    }
-
-    public ArrayList<Factura> listarFacturas() {
-        ArrayList<Factura> facturas = new ArrayList<>();
+    private void buscarProductoPorCodigo(String codigo) {
         try {
             Connection conexion = Conexion.getInstancia().getConexion();
-            String sql = "SELECT idFactura, fecha, total, metodoPago, idCliente, idEmpleado, idCompra, idPago FROM Facturas";
-            Statement stmt = conexion.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            String sql = "SELECT idProducto, nombreProducto, precioProducto FROM Productos WHERE codigoBarras = ?";
+            PreparedStatement stmt = conexion.prepareStatement(sql);
+            stmt.setString(1, codigo);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                cantidadActual++;
+                txtCantidad.setText(String.valueOf(cantidadActual));
+
+                txtProducto.setText(rs.getString("nombreProducto"));
+                txtPrecio.setText(String.valueOf(rs.getDouble("precioProducto")));
+
+                btnAgregar.setDisable(false);
+            } else {
+                mostrarAlerta("Producto no encontrado con el código: " + codigo);
+            }
+        } catch (SQLException e) {
+            mostrarAlerta("Error al buscar producto: " + e.getMessage());
+        }
+    }
+
+    public ArrayList<Producto> listarProductosEnFactura() {
+        ArrayList<Producto> productos = new ArrayList<>();
+        try {
+            Connection conexion = Conexion.getInstancia().getConexion();
+            String sql = "SELECT p.idProducto, p.codigoBarras, p.nombreProducto, p.precioProducto, "
+                    + "dc.cantidad, dc.subtotal "
+                    + "FROM DetalleCompras dc "
+                    + "JOIN Productos p ON dc.idProducto = p.idProducto "
+                    + "WHERE dc.idCompra = ?";
+            PreparedStatement stmt = conexion.prepareStatement(sql);
+            stmt.setInt(1, idCompraActual);
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Convertir Timestamp a LocalDateTime
-                Timestamp timestamp = rs.getTimestamp("fecha");
-                LocalDateTime fecha = timestamp != null ? timestamp.toLocalDateTime() : LocalDateTime.now();
-
-                facturas.add(new Factura(
-                        rs.getInt("idFactura"),
-                        fecha,
-                        rs.getDouble("total"),
-                        rs.getString("metodoPago"),
-                        rs.getInt("idCliente"),
-                        rs.getInt("idEmpleado"),
-                        rs.getInt("idCompra"),
-                        rs.getInt("idPago")
-                ));
+                Producto producto = new Producto(
+                        rs.getInt("idProducto"),
+                        rs.getString("nombreProducto"),
+                        rs.getString("codigoBarras"),
+                        rs.getDouble("precioProducto")
+                );
+                producto.setCantidad(rs.getInt("cantidad"));
+                producto.setSubtotal(rs.getDouble("subtotal"));
+                productos.add(producto);
             }
         } catch (SQLException e) {
-            mostrarAlerta("Error al cargar facturas: " + e.getMessage());
+            mostrarAlerta("Error al cargar productos de la factura: " + e.getMessage());
         }
-        return facturas;
+        return productos;
     }
 
-    private Factura getModeloFactura() {
-        int idFactura = txtId.getText().isEmpty() ? 0 : Integer.parseInt(txtId.getText());
-
-        LocalDateTime fecha = dpFecha.getValue() != null
-                ? dpFecha.getValue().atStartOfDay()
-                : LocalDateTime.now();
-
-        double total = txtTotal.getText().isEmpty() ? 0 : Double.parseDouble(txtTotal.getText());
-        String metodoPago = ((RadioButton) tgMetodoPago.getSelectedToggle()).getText();
-        int idCliente = txtCliente.getText().isEmpty() ? 0 : Integer.parseInt(txtCliente.getText());
-        int idEmpleado = txtEmpleado.getText().isEmpty() ? 0 : Integer.parseInt(txtEmpleado.getText());
-        int idCompra = txtCompra.getText().isEmpty() ? 0 : Integer.parseInt(txtCompra.getText());
-        int idPago = txtPago.getText().isEmpty() ? 0 : Integer.parseInt(txtPago.getText());
-
-        return new Factura(idFactura, fecha, total, metodoPago, idCliente, idEmpleado, idCompra, idPago);
-    }
-
-    public void agregarFactura() {
-        if (validarCampos()) {
-            modeloFactura = getModeloFactura();
-            try {
-                CallableStatement stmt = Conexion.getInstancia().getConexion()
-                        .prepareCall("{call sp_AgregarFactura(?, ?, ?, ?, ?, ?)}");
-                stmt.setDouble(1, modeloFactura.getTotal());
-                stmt.setString(2, modeloFactura.getMetodoPago());
-                stmt.setInt(3, modeloFactura.getIdCliente());
-                stmt.setInt(4, modeloFactura.getIdEmpleado());
-                stmt.setInt(5, modeloFactura.getIdCompra());
-                stmt.setInt(6, modeloFactura.getIdPago());
-                stmt.execute();
-                cargarDatos();
-                cambiarOriginal();
-            } catch (SQLException e) {
-                mostrarAlerta("Error al agregar factura: " + e.getMessage());
-            }
-        }
-    }
-
-    public void editarFactura() {
-        if (validarCampos()) {
-            modeloFactura = getModeloFactura();
-            try {
-                CallableStatement stmt = Conexion.getInstancia().getConexion()
-                        .prepareCall("{call sp_ActualizarFactura(?, ?, ?, ?, ?, ?, ?)}");
-                stmt.setInt(1, modeloFactura.getIdFactura());
-                stmt.setDouble(2, modeloFactura.getTotal());
-                stmt.setString(3, modeloFactura.getMetodoPago());
-                stmt.setInt(4, modeloFactura.getIdCliente());
-                stmt.setInt(5, modeloFactura.getIdEmpleado());
-                stmt.setInt(6, modeloFactura.getIdCompra());
-                stmt.setInt(7, modeloFactura.getIdPago());
-                stmt.execute();
-                cargarDatos();
-                cambiarOriginal();
-            } catch (SQLException e) {
-                mostrarAlerta("Error al editar factura: " + e.getMessage());
-            }
-        }
-    }
-
-    public void eliminarFactura() {
-        modeloFactura = getModeloFactura();
+    @FXML
+    public void agregarProducto() {
         try {
-            CallableStatement stmt = Conexion.getInstancia().getConexion()
-                    .prepareCall("{call sp_EliminarFacturas(?)}");
-            stmt.setInt(1, modeloFactura.getIdFactura());
-            stmt.execute();
-            cargarDatos();
+            if (idCompraActual <= 0) {
+                mostrarAlerta("No hay una compra válida asociada");
+                return;
+            }
+
+            String codigo = txtCodigo.getText();
+            Connection conexion = Conexion.getInstancia().getConexion();
+
+            String sqlProducto = "SELECT idProducto FROM Productos WHERE codigoBarras = ?";
+            PreparedStatement stmtProducto = conexion.prepareStatement(sqlProducto);
+            stmtProducto.setString(1, codigo);
+            ResultSet rsProducto = stmtProducto.executeQuery();
+
+            if (rsProducto.next()) {
+                int idProducto = rsProducto.getInt("idProducto");
+
+                String sqlVerificar = "SELECT cantidad FROM DetalleCompras WHERE idCompra = ? AND idProducto = ?";
+                PreparedStatement stmtVerificar = conexion.prepareStatement(sqlVerificar);
+                stmtVerificar.setInt(1, idCompraActual);
+                stmtVerificar.setInt(2, idProducto);
+                ResultSet rsVerificar = stmtVerificar.executeQuery();
+
+                if (rsVerificar.next()) {
+                    int cantidadActual = rsVerificar.getInt("cantidad");
+                    int nuevaCantidad = cantidadActual + this.cantidadActual;
+
+                    String sqlActualizar = "UPDATE DetalleCompras SET cantidad = ?, subtotal = (SELECT precioProducto FROM Productos WHERE idProducto = ?) * ? WHERE idCompra = ? AND idProducto = ?";
+                    PreparedStatement stmtActualizar = conexion.prepareStatement(sqlActualizar);
+                    stmtActualizar.setInt(1, nuevaCantidad);
+                    stmtActualizar.setInt(2, idProducto);
+                    stmtActualizar.setInt(3, nuevaCantidad);
+                    stmtActualizar.setInt(4, idCompraActual);
+                    stmtActualizar.setInt(5, idProducto);
+                    stmtActualizar.executeUpdate();
+                } else {
+                    CallableStatement procedimiento = conexion.prepareCall("{call sp_agregarDetalleCompra(?, ?, ?)}");
+                    procedimiento.setInt(1, idCompraActual);
+                    procedimiento.setInt(2, idProducto);
+                    procedimiento.setInt(3, cantidadActual);
+                    procedimiento.execute();
+                }
+
+                limpiarTexto();
+                cantidadActual = 0;
+                cargarDatos();
+                btnAgregar.setDisable(true);
+            }
         } catch (SQLException e) {
-            mostrarAlerta("Error al eliminar factura: " + e.getMessage());
+            mostrarAlerta("Error al agregar detalle de compra: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    private boolean validarCampos() {
-        if (dpFecha.getValue() == null
-                || txtTotal.getText().isEmpty()
-                || tgMetodoPago.getSelectedToggle() == null
-                || txtCliente.getText().isEmpty()
-                || txtEmpleado.getText().isEmpty()
-                || txtCompra.getText().isEmpty()
-                || txtPago.getText().isEmpty()) {
+    @FXML
+    public void eliminarProducto() {
+        Producto productoSeleccionado = tablaProductos.getSelectionModel().getSelectedItem();
+        if (productoSeleccionado != null) {
+            try {
+                Connection conexion = Conexion.getInstancia().getConexion();
+                String sql = "DELETE FROM DetalleCompras WHERE idCompra = ? AND idProducto = ?";
+                PreparedStatement stmt = conexion.prepareStatement(sql);
+                stmt.setInt(1, idCompraActual);
+                stmt.setInt(2, productoSeleccionado.getIdProducto());
+                stmt.executeUpdate();
 
-            mostrarAlerta("Todos los campos son obligatorios");
-            return false;
+                cargarDatos();
+            } catch (SQLException e) {
+                mostrarAlerta("Error al eliminar producto: " + e.getMessage());
+            }
+        } else {
+            mostrarAlerta("Seleccione un producto de la tabla para eliminar");
         }
-
-        try {
-            Double.parseDouble(txtTotal.getText());
-            Integer.parseInt(txtCliente.getText());
-            Integer.parseInt(txtEmpleado.getText());
-            Integer.parseInt(txtCompra.getText());
-            Integer.parseInt(txtPago.getText());
-        } catch (NumberFormatException e) {
-            mostrarAlerta("Total, Cliente, Empleado, Compra y Pago deben ser valores numéricos");
-            return false;
-        }
-
-        return true;
     }
 
     private void mostrarAlerta(String mensaje) {
@@ -261,14 +247,11 @@ public class FacturaController implements Initializable {
     }
 
     public void limpiarTexto() {
-        txtId.clear();
-        dpFecha.setValue(null);
-        txtTotal.clear();
-        tgMetodoPago.selectToggle(null);
-        txtCliente.clear();
-        txtEmpleado.clear();
-        txtCompra.clear();
-        txtPago.clear();
+        txtCodigo.clear();
+        txtProducto.clear();
+        txtPrecio.clear();
+        txtCantidad.clear();
+        txtCodigo.requestFocus();
     }
 
     public void btnRegresarActionEvent(ActionEvent evento) {
@@ -277,74 +260,29 @@ public class FacturaController implements Initializable {
 
     @FXML
     private void cambiarNuevoFactura() {
-        switch (accion) {
-            case Ninguna:
-                cambiarGuardarEditar();
-                accion = Acciones.Agregar;
-                limpiarTexto();
-                habilitarControles(true);
-                break;
-            case Agregar:
-                agregarFactura();
-                break;
-            case Editar:
-                editarFactura();
-                break;
-        }
-    }
-
-    @FXML
-    private void cambiarEdicionFactura() {
-        cambiarGuardarEditar();
-        accion = Acciones.Editar;
-        habilitarControles(true);
+        agregarProducto();
     }
 
     @FXML
     private void cambiarCancelarEliminar() {
-        if (accion == Acciones.Ninguna) {
-            eliminarFactura();
-        } else {
-            cambiarOriginal();
+        eliminarProducto();
+    }
+
+    @FXML
+    private void FinalizarPedido() {
+        double subtotal = 0;
+        for (Producto producto : listaProductos) {
+            subtotal += producto.getSubtotal();
         }
-    }
 
-    private void cambiarGuardarEditar() {
-        btnAgregar.setText("Guardar");
-        btnEliminar.setText("Cancelar");
-        btnEditar.setDisable(true);
-    }
-
-    private void cambiarOriginal() {
-        btnAgregar.setText("Agregar");
-        btnEliminar.setText("Eliminar");
-        btnEditar.setDisable(false);
-        accion = Acciones.Ninguna;
-        deshabilitarControles();
+        principal.getFactura2View(idCompraActual, subtotal);
     }
 
     private void deshabilitarControles() {
-        txtId.setDisable(true);
-        dpFecha.setDisable(true);
-        txtTotal.setDisable(true);
-        tgMetodoPago.getToggles().forEach(t -> ((RadioButton) t).setDisable(true));
-        txtCliente.setDisable(true);
-        txtEmpleado.setDisable(true);
-        txtCompra.setDisable(true);
-        txtPago.setDisable(true);
-        tablaFacturas.setDisable(false);
-    }
-
-    private void habilitarControles(boolean habilitar) {
-        txtId.setDisable(true); // ID siempre deshabilitado
-        dpFecha.setDisable(!habilitar);
-        txtTotal.setDisable(!habilitar);
-        tgMetodoPago.getToggles().forEach(t -> ((RadioButton) t).setDisable(!habilitar));
-        txtCliente.setDisable(!habilitar);
-        txtEmpleado.setDisable(!habilitar);
-        txtCompra.setDisable(!habilitar);
-        txtPago.setDisable(!habilitar);
-        tablaFacturas.setDisable(habilitar);
+        txtProducto.setDisable(true);
+        txtPrecio.setDisable(true);
+        txtCantidad.setDisable(true);
+        btnAgregar.setDisable(true);
     }
 
     public void setPrincipal(Main principal) {

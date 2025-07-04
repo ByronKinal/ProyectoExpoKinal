@@ -102,7 +102,7 @@ public class EmpleadoController implements Initializable {
     try {
         Connection conexion = Conexion.getInstancia().getConexion();
         String sql = "SELECT idUsuario, nombreUsuario, correoUsuario, contraseñaUsuario, tipo " +
-                     "FROM Usuarios WHERE tipo = 'Empleado'";
+                     "FROM Usuarios WHERE tipo IN ('Empleado', 'Admin');";
         Statement stmt = conexion.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
 

@@ -1,4 +1,3 @@
-
 package org.fundacionkinal.system;
 
 import java.io.InputStream;
@@ -10,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.fundacionkinal.controller.ComprasController;
 import org.fundacionkinal.controller.EmpleadoController;
+import org.fundacionkinal.controller.Factura2Controller;
 import org.fundacionkinal.controller.FacturaController;
 import org.fundacionkinal.controller.LoginController;
 import org.fundacionkinal.controller.MenuAdminController;
@@ -19,8 +19,8 @@ import org.fundacionkinal.controller.ProductosController;
  *
  * @author Wilson Florian
  */
-public class Main extends Application{
-    
+public class Main extends Application {
+
     private Stage escenarioPrincipal;
     private Scene siguienteEscena;
     private static String URL = "/org/fundacionkinal/view/";
@@ -35,8 +35,8 @@ public class Main extends Application{
         escenarioPrincipal.setTitle("SISTEMA DE CAJERO");
         getLoginView();
         escenarioPrincipal.show();
-    }  
-    
+    }
+
     public Initializable cambiarEscena(String fxml, double ancho, double alto) throws Exception {
         Initializable interfazDeCambio = null;
         FXMLLoader cargadorFXML = new FXMLLoader();
@@ -47,12 +47,12 @@ public class Main extends Application{
 
         siguienteEscena = new Scene(cargadorFXML.load(archivoFXML), ancho, alto);
         escenarioPrincipal.setScene(siguienteEscena);
-        escenarioPrincipal.sizeToScene(); 
+        escenarioPrincipal.sizeToScene();
 
         interfazDeCambio = cargadorFXML.getController();
         return interfazDeCambio;
     }
-    
+
     public void getLoginView() {
         try {
             LoginController control
@@ -63,7 +63,7 @@ public class Main extends Application{
             ex.printStackTrace();
         }
     }
-    
+
     public void getMenuAdminView() {
         try {
             MenuAdminController control
@@ -74,18 +74,50 @@ public class Main extends Application{
             ex.printStackTrace();
         }
     }
-    
+
     public void getFacturaView() {
         try {
             FacturaController control
-                    = (FacturaController) cambiarEscena("FacturaView.fxml", 1069, 700);
+                    = (FacturaController) cambiarEscena("FacturaView.fxml", 1920, 1080);
             control.setPrincipal(this);
         } catch (Exception ex) {
             System.out.println("Error al ir a facturas: " + ex.getMessage());
             ex.printStackTrace();
         }
     }
+
+    public void getFactura2View(int idCompra, double subtotal) {
+        try {
+            FXMLLoader cargadorFXML = new FXMLLoader();
+            InputStream archivoFXML = Main.class.getResourceAsStream(URL + "Factura2View.fxml");
+
+            cargadorFXML.setBuilderFactory(new JavaFXBuilderFactory());
+            cargadorFXML.setLocation(Main.class.getResource(URL + "Factura2View.fxml"));
+
+            siguienteEscena = new Scene(cargadorFXML.load(archivoFXML), 1920, 1080);
+            escenarioPrincipal.setScene(siguienteEscena);
+            escenarioPrincipal.sizeToScene();
+
+            Factura2Controller control = cargadorFXML.getController();
+            control.setPrincipal(this);
+            control.initData(idCompra, subtotal); // Pasar los datos a Factura2Controller
+        } catch (Exception ex) {
+            System.out.println("Error al ir a factura2: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
     
+    public void getFactura2View() {
+    try {
+        Factura2Controller control
+                = (Factura2Controller) cambiarEscena("Factura2View.fxml", 1920, 1080);
+        control.setPrincipal(this);
+    } catch (Exception ex) {
+        System.out.println("Error al ir a facturas: " + ex.getMessage());
+        ex.printStackTrace();
+    }
+}
+
     public void getComprasView() {
         try {
             ComprasController control
@@ -96,7 +128,7 @@ public class Main extends Application{
             ex.printStackTrace();
         }
     }
-    
+
     public void getEmpleadosView() {
         try {
             EmpleadoController control
@@ -107,7 +139,7 @@ public class Main extends Application{
             ex.printStackTrace();
         }
     }
-    
+
     public void getProductosView() {
         try {
             ProductosController control

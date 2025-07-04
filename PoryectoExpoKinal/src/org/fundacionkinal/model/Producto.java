@@ -1,4 +1,3 @@
-
 package org.fundacionkinal.model;
 
 /**
@@ -6,12 +5,13 @@ package org.fundacionkinal.model;
  * @author Wilson Florian
  */
 public class Producto {
-    
     private int idProducto;
     private String nombreProducto;
     private double precioProducto;
     private int stockProducto;
     private String codigoBarras;
+    private int cantidad;
+    private double subtotal;
 
     public Producto() {
     }
@@ -22,6 +22,13 @@ public class Producto {
         this.precioProducto = precioProducto;
         this.stockProducto = stockProducto;
         this.codigoBarras = codigoBarras;
+    }
+
+    public Producto(int idProducto, String nombreProducto, String codigoBarras, double precioProducto) {
+        this.idProducto = idProducto;
+        this.nombreProducto = nombreProducto;
+        this.codigoBarras = codigoBarras;
+        this.precioProducto = precioProducto;
     }
 
     public Producto(String nombreProducto, double precioProducto, int stockProducto) {
@@ -68,5 +75,21 @@ public class Producto {
 
     public void setCodigoBarras(String codigoBarras) {
         this.codigoBarras = codigoBarras;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public double getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
     }
 }

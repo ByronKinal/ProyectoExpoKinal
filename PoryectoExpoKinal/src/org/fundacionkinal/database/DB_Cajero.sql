@@ -7,7 +7,7 @@ create table Usuarios (
 	nombreUsuario varchar(64) not null,
 	correoUsuario varchar(128) not null,
 	contraseñaUsuario varchar(128) not null,
-    tipo enum('Cliente', 'Empleado', 'Admin'),
+    tipo enum('Empleado', 'Admin'),
     constraint pk_usuarios primary key (idUsuario)
 );
 
@@ -22,13 +22,10 @@ create table Productos(
 
 create table Compras(
 	idCompra int auto_increment,
-    idCliente int not null,
     estadoCompra enum('Pendiente','Completada','Cancelada'),
-    estadoPago enum('Pendiente', 'Pagado'),
+    estadoPago enum('Pendiente', 'Pagado')default'Pendiente',
     fechaCompra datetime default now(),
-    constraint pk_compras primary key (idCompra),
-    constraint fk_compras_clientes foreign key (idCliente) 
-		references Usuarios (idUsuario) on delete cascade
+    constraint pk_compras primary key (idCompra)
 );
 
 create table DetalleCompras(
@@ -59,13 +56,11 @@ create table Facturas(
     fecha datetime default now(),
     total decimal(10,2) not null,
     metodoPago enum('Efectivo','Tarjeta','Transferencia'),
-    idCliente int not null,
     idEmpleado int not null,
     idCompra int not null,
     idPago int not null,
     constraint pk_facturas primary key (idFactura),
-    constraint fk_facturas_clientes foreign key (idCliente)
-		references Usuarios(idUsuario) on delete cascade,
+
 	constraint fk_facturas_empleados foreign key (idEmpleado)
 		references Usuarios(idUsuario) on delete cascade,
 	constraint fk_facturas_compras foreign key (idCompra)
@@ -80,15 +75,12 @@ create table AuditoriaFacturas(
     estado enum('Pendiente','Completada','Cancelada'),
     descripcion varchar(256) not null,
     idFactura int not null,
-    idCliente int not null,
     idEmpleado int not null,
     idCompra int not null,
     idPago int not null,
     constraint pk_auditoria_facturas primary key (idAuditoriaFactura),
     constraint fk_auditoria_facturas_facturas foreign key (idFactura)
 		references Facturas(idFactura) on delete cascade,
-    constraint fk_auditoria_facturas_clientes foreign key (idCliente)
-		references Usuarios(idUsuario) on delete cascade,
 	constraint fk_auditoria_facturas_empleados foreign key (idEmpleado)
 		references Usuarios(idUsuario) on delete cascade,
 	constraint fk_auditoria_facturas_compras foreign key (idCompra)
@@ -100,13 +92,11 @@ create table AuditoriaFacturas(
 create table AuditoriaCompras(
 	idAuditoriaCompra int auto_increment,
     idCompra int not null,
-    idCliente int not null,
     fecha datetime default now(),
     estado enum('Pendiente','Completada','Cancelada'),
     descripcion varchar(256) not null,
     constraint pk_auditoria_compras primary key (idAuditoriaCompra),
-    constraint fk_auditoria_compras_clientes foreign key (idCliente)
-		references Usuarios(idUsuario) on delete cascade,
+
 	constraint fk_auditoria_compras_compras foreign key (idCompra)
 		references Compras(idCompra) on delete cascade
 );
@@ -125,7 +115,96 @@ create table AuditoriaPagos(
 		references Compras(idCompra) on delete cascade
 );
 
+CREATE TABLE AuditoriaProductos (
+    idAuditoriaProducto INT AUTO_INCREMENT PRIMARY KEY,
+    idProducto INT NOT NULL,
+    precio_anterior DECIMAL(10,2),
+    precio_nuevo DECIMAL(10,2),
+    stock_anterior INT,
+    stock_nuevo INT,
+    fecha_cambio DATETIME DEFAULT NOW(),
+    descripcion VARCHAR(255),
+    FOREIGN KEY (idProducto) REFERENCES Productos(idProducto) ON DELETE CASCADE
+);
+create table Cliente(
+	idCliente int auto_increment,
+	nombreCliente varchar (128),
+    NIT varchar(128),
+    Numero int(8),
+    idCompra int,
+    constraint pk_clientes primary key (idCliente), 
+    constraint fk_facturas_cliente foreign key (idCompra)
+		references Compras(idCompra) on delete cascade
+);
+
 -- -----------------------------------------------------------------------------------------------------------CRUD--------------------------------------------------------------------------------------------------------------------
+-- CRUD CLIENTE
+
+-- CREATE:
+DELIMITER $$ 
+create procedure sp_AgregarCliente(
+		in p_nombreCliente varchar(200),
+		in p_NIT varchar(200),
+		in p_idCompra int,
+        in p_numero int)
+	begin
+		insert into CLiente(nombreCliente, NIT,idCompra,Numero)
+		values(p_nombreCliente, p_NIT, p_idCompra,p_numero);
+	end;
+$$
+DELIMITER ;
+--
+
+-- READ:
+DELIMITER $$
+create procedure sp_ListarClientes()
+    begin
+		select 
+        idCliente as ID,
+        nombreCliente as CLIENTE,
+        NIT as NIT,
+        idCompra as COMPRA,
+        Numero as NUMERO
+        from Cliente;
+    end;
+$$
+DELIMITER ;
+call sp_ListarClientes();
+
+-- UPDATE
+DELIMITER $$
+create procedure sp_ActualizarCliente(
+		in p_idCliente int,
+		in p_nombreCliente varchar(200),
+		in p_NIT varchar(200),
+		in p_idCompra int,
+        in p_numero int)
+	begin
+		update Cliente
+			set
+				nombreCliente = p_nombreCliente,
+				NIT = p_NIT,
+				idCompra = p_idCompra,
+                Numero = p_numero
+            where 
+				p_idCliente = idCliente;
+		
+	end;
+$$
+DELIMITER ;
+
+-- DELETE
+
+DELIMITER $$
+create procedure sp_EliminarCliente(in p_idCliente int)
+    begin
+		delete 
+        from Cliente
+			where idCliente = p_idClientes;
+    end 
+$$
+DELIMITER ;
+
 
 -- CRUD USUARIOS
 
@@ -268,13 +347,12 @@ DELIMITER ;
 -- CREATE
 DELIMITER $$
 create procedure sp_agregarCompra(
-    in p_idCliente int,
     in p_estadoCompra enum ('Pendiente','Completada','Cancelada'),
     in p_estadoPago enum ('Pendiente','Pagado'))
 	begin
 		insert into Compras(
-        idCliente,estadoCompra,estadoPago)
-        values(p_idCliente,p_estadoCompra,p_estadoPago);
+        estadoCompra,estadoPago)
+        values(p_estadoCompra,p_estadoPago);
     end
 $$
 DELIMITER ;
@@ -286,7 +364,6 @@ create procedure sp_ListarCompras()
     begin
 		select 
         idCompra as COMPRA,
-        idCliente as CLIENTE,
         estadoCompra as ESTADO_COMPRA,
         estadoPago as ESTADO_PAGO,
         fechaCompra as FECHA
@@ -300,13 +377,11 @@ call sp_ListarCompras();
 DELIMITER $$
 create procedure sp_ActualizarCompras(
 		in p_idCompra int,
-        in p_idCliente int,
 		in p_estadoCompra enum('Pendiente','Completada','Cancelada'),
 		in p_estadoPago enum('Pendiente', 'Pagado'))
 	begin
 		update Compras
 			set
-				idCliente = p_idCliente,
                 estadoCompra = p_estadoCompra,
 				estadoPago = p_estadoPago
             where 
@@ -336,12 +411,11 @@ DELIMITER $$
 create procedure sp_agregarDetalleCompra(
 	in p_idCompra int,
     in p_idProducto int,
-    in p_cantidad int,
-    in p_subtotal decimal(10,2))
+    in p_cantidad int)
 	begin
 		insert into DetalleCompras(
-        idCompra,idProducto,cantidad,subtotal)
-        values(p_idCompra,p_idProducto,p_cantidad,p_subtotal);
+        idCompra,idProducto,cantidad)
+        values(p_idCompra,p_idProducto,p_cantidad);
     end
 $$
 DELIMITER ;
@@ -371,11 +445,10 @@ create procedure sp_ActualizarDetalleCompras(
 	begin
 		update DetalleCompras
 			set
-				idProducto = p_idProducto,
                 cantidad = p_cantidad,
 				subtotal = p_subtotal
             where 
-				p_idCompra = idCompra;
+				 idCompra = p_idCompra and idProducto = p_idProducto;
 		
 	end;
 $$
@@ -393,6 +466,26 @@ create procedure sp_EliminarDetalleCompras(in p_idCompras int)
 $$
 DELIMITER ;
 -- call sp_EliminarDetalleCompras(2);
+
+ DELIMITER $$
+CREATE PROCEDURE sp_ReporteVentas(
+    IN p_fechaInicio DATE,
+    IN p_fechaFin DATE)
+BEGIN
+    SELECT 
+        c.idCompra,
+        u.nombreUsuario AS cliente,
+        COUNT(dc.idProducto) AS productos,
+        SUM(dc.subtotal) AS total,
+        c.fechaCompra
+    FROM Compras c
+
+    JOIN DetalleCompras dc ON c.idCompra = dc.idCompra
+    WHERE c.fechaCompra BETWEEN p_fechaInicio AND p_fechaFin
+    AND c.estadoCompra = 'Completada'
+    GROUP BY c.idCompra;
+END$$
+DELIMITER ;
  
  -- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- CRUD PAGOS
@@ -402,13 +495,14 @@ DELIMITER $$
 create procedure sp_AgregarPagos(
     in p_metodoPago enum('Efectivo','Tarjeta','Transferencia'),
     in p_cantidad decimal(10,2),
-    in p_idCompra int)
-	begin
-		insert into Pagos(
-        metodoPago,cantidad,idCompra)
-        values(p_metodoPago,p_cantidad,p_idCompra);
-    end
-$$
+    in p_idCompra int,
+    out p_idPago int)
+begin
+    insert into Pagos(metodoPago, cantidad, idCompra)
+    values(p_metodoPago, p_cantidad, p_idCompra);
+    
+    set p_idPago = LAST_INSERT_ID();
+end$$
 DELIMITER ;
 
 -- READ
@@ -433,12 +527,19 @@ create procedure sp_ActualizarPagos(
 		in p_cantidad decimal(10,2),
 		in p_idCompra int)
 	begin
+		if not exists 
+        (select 1 from Compras where idCompra = p_idCompra) 
+        then 
+        signal sqlstate '45000' 
+        set message_text = 'La compra no existe';
+        else
 		update Pagos
 			set
                 cantidad = p_cantidad,
 				idCompra = p_idCompra
             where 
-				p_idPago = idPago;
+				idPago = p_idPago;
+		end if;
 	end;
 $$
 DELIMITER ;
@@ -462,16 +563,14 @@ DELIMITER ;
 -- CREATE
 DELIMITER $$
 create procedure sp_AgregarFactura(
-	in p_total decimal(10,2),
-    in p_metodoPago enum('Efectivo','Tarjeta','Transferencia'),
-    in p_idCliente int,
+    in p_metodoPago enum('Efectivo','Tarjeta'),
     in p_idEmpleado int,
     in p_idCompra int,
     in p_idPago int)
 	begin
 		insert into Facturas(
-        total,metodoPago,idCliente,idEmpleado,idCompra,idPago)
-        values(p_total,p_metodoPago,p_idCliente,p_idEmpleado,p_idCompra,p_idPago);
+        metodoPago,idEmpleado,idCompra,idPago)
+        values(p_metodoPago,p_idEmpleado,p_idCompra,p_idPago);
     end
 $$
 DELIMITER ;
@@ -485,7 +584,6 @@ create procedure sp_ListarFactura()
         fecha as FECHA,
         total as TOTAL,
         metodoPago as METODO_PAGO,
-        idCliente as CLIENTE,
         idEmpleado as EMPLEADO,
         idCompra as COMPRA,
         idPago as PAGO
@@ -501,7 +599,6 @@ create procedure sp_ActualizarFactura(
 		in p_idFactura int,
 		in p_total decimal(10,2),
 		in p_metodoPago enum('Efectivo','Tarjeta','Transferencia'),
-		in p_idCliente int,
 		in p_idEmpleado int,
 		in p_idCompra int,
 		in p_idPago int)
@@ -510,6 +607,7 @@ create procedure sp_ActualizarFactura(
 			set
                 total = p_total,
 				metodoPago = p_metodoPago,
+ 
                 idEmpleado = p_idEmpleado,
                 idCompra = p_idCompra,
                 idPago = p_idPago
@@ -540,14 +638,13 @@ create procedure sp_AgregarAuditoriaFactura(
     in p_estado enum('Pendiente','Completada','Cancelada'),
     in p_descripcion varchar(256),
     in p_idFactura int,
-    in p_idCliente int,
     in p_idEmpleado int,
     in p_idCompra int,
     in p_idPago int)
 	begin
 		insert into AuditoriaFacturas(
-        estado,descripcion,idFactura,idCliente,idEmpleado,idCompra,idPago)
-        values(p_estado,p_descripcion,p_idFactura,p_idCliente,p_idEmpleado,p_idCompra,p_idPago);
+        estado,descripcion,idFactura,idEmpleado,idCompra,idPago)
+        values(p_estado,p_descripcion,p_idFactura,p_idEmpleado,p_idCompra,p_idPago);
     end
 $$
 DELIMITER ;
@@ -562,7 +659,6 @@ create procedure sp_ListarAuditoriaFactura()
         estado as ESTADO,
         descripcion as DESCRIPCION,
         idFactura as FACTURA,
-        idCliente as CLIENTE,
         idEmpleado as EMPLEADO,
         idCompra as COMPRA,
         idPago as PAGO
@@ -579,7 +675,7 @@ create procedure sp_ActualizarAuditoriaFactura(
         in p_estado enum('Pendiente','Completada','Cancelada'),
 		in p_descripcion varchar(256),
 		in p_idFactura int,
-		in p_idCliente int,
+
 		in p_idEmpleado int,
 		in p_idCompra int,
 		in p_idPago int)
@@ -589,7 +685,6 @@ create procedure sp_ActualizarAuditoriaFactura(
 				estado = p_estado,
                 descripcion = p_descripcion,
 				idFactura = p_idFactura,
-                idCliente = p_idCliente,
                 idEmpleado = p_idEmpleado,
                 idCompra = p_idCompra,
                 idPago = p_idPago
@@ -618,13 +713,13 @@ DELIMITER ;
 DELIMITER $$
 create procedure sp_AgregarAuditoriaCompra(
     in p_idCompra int,
-    in p_idCliente int,
+
     in p_estado enum('Pendiente','Completada','Cancelada'),
     in p_descripcion varchar(256))
 	begin
 		insert into AuditoriaCompras(
-        idCompra,idCliente,estado,descripcion)
-        values(p_idCompra,p_idCliente,p_estado,p_descripcion);
+        idCompra,estado,descripcion)
+        values(p_idCompra,p_estado,p_descripcion);
     end
 $$
 DELIMITER ;
@@ -638,8 +733,8 @@ create procedure sp_ListarAuditoriaCompra()
         fecha as FECHA,
         estado as ESTADO,
         descripcion as DESCRIPCION,
-        idCompra as COMPRA,
-        idCliente as CLIENTE
+        idCompra as COMPRA
+
         from AuditoriaCompras;
     end;
 $$
@@ -651,14 +746,12 @@ DELIMITER $$
 create procedure sp_ActualizarAuditoriaCompra(
 		in p_idAuditoriaCompra int,
         in p_idCompra int,
-        in p_idCliente int,
         in p_estado enum('Pendiente','Completada','Cancelada'),
 		in p_descripcion varchar(256))
 	begin
 		update AuditoriaCompras
 			set
 				idCompra = p_idCompra,
-                idCliente = p_idCliente,
 				estado = p_estado,
                 descripcion = p_descripcion
             where 
@@ -763,7 +856,6 @@ delimiter $$
 		begin
 				call sp_AgregarAuditoriaCompra(
 					old.idCompra, 
-                    old.idCliente,
                     'Pendiente',
 					concat('Se hizo un cambio en Compras el estado de la compra cambio a: ',new.estadoCompra,' y el estado del pago es:',new.estadoPago));
         end$$
@@ -802,60 +894,149 @@ delimiter $$
                     ' y el total es: ',
                     new.total),
                     old.idFactura, 
-                    old.idCliente,
+
                     old.idEmpleado, 
                     old.idCompra,
                     old.idPago);
         end$$
 delimiter ;
 
--- ---------------------------- Echo por Byron -----------------------------------
+/*
 delimiter $$
-	create trigger tr_GenerarFactura_after_insert
-	after insert on Pagos
-	for each row
-		begin
-			declare totalFactura decimal(12,2);
-			declare clienteID int;
-			declare empleadoID int;
-			declare estadoPagoCompra varchar(20);    
-			select estadoPago into estadoPagoCompra 
-			from Compras 
-			where idCompra = new.idCompra;
-			if estadoPagoCompra = 'Pagado' then
-				set totalFactura = new.cantidad;
-				select idCliente into clienteID 
-				from Compras 
-				where idCompra = new.idCompra;        
-				select idUsuario into empleadoID 
-				from Usuarios 
-				where tipo in ('Empleado', 'Admin') 
-				limit 1;
-				
-				-- Insertar factura solo si no existe ya
-				if not exists (
-					select 1 from Facturas 
-					where idCompra = new.idCompra 
-					and idPago = new.idPago
-				) then
-					insert into Facturas(
-						total, 
-						metodoPago, 
-						idCliente, 
-						idEmpleado, 
-						idCompra, 
-						idPago
-					)
-					values(
-						totalFactura,
-						new.metodoPago,
-						clienteID,
-						empleadoID,
-						new.idCompra,
-						new.idPago
-					);
-				end if;
-			end if;
-	end$$
+create trigger tr_ActualizarEstadoPago_After_Insert
+after insert on Pagos
+for each row
+begin
+    declare total_pagado decimal(10,2);
+    declare total_compra decimal(10,2);
+    
+    -- Calcular el total pagado para esta compra
+    select sum(cantidad) into total_pagado 
+    from Pagos 
+    where idCompra = new.idCompra;
+    
+    -- Calcular el total de la compra
+    select sum(subtotal) into total_compra
+    from DetalleCompras
+    where idCompra = new.idCompra;
+    
+    -- Actualizar estado de pago
+    if total_pagado >= total_compra then
+        update Compras 
+        set estadoPago = 'Pagado'
+        where idCompra = new.idCompra;
+    end if;
+end$$
 delimiter ;
--- call sp_ListarFactura;
+
+delimiter $$
+create trigger tr_ActualizarEstadoCompra_After_Update
+after update on Compras
+for each row
+begin
+    if new.estadoPago = 'Pagado' and old.estadoPago != 'Pagado' then
+        update Compras
+        set estadoCompra = 'Completada'
+        where idCompra = new.idCompra;
+    end if;
+end$$
+delimiter ;
+*/
+
+delimiter $$
+create trigger tr_AuditoriaProductos_After_Update
+after update on Productos
+for each row
+begin
+    if old.precioProducto != new.precioProducto or old.stockProducto != new.stockProducto then
+        insert into AuditoriaProductos (
+            idProducto, 
+            precio_anterior, 
+            precio_nuevo, 
+            stock_anterior, 
+            stock_nuevo, 
+            fecha_cambio,
+            descripcion
+        )
+        values (
+            new.idProducto,
+            old.precioProducto,
+            new.precioProducto,
+            old.stockProducto,
+            new.stockProducto,
+            now(),
+            concat('Cambio en producto ', new.nombreProducto)
+        );
+    end if;
+end$$
+delimiter ;
+
+
+delimiter $$
+create trigger tr_CalcularSubTotal_Before_Insert
+before insert on DetalleCompras
+for each row
+begin
+    declare precio decimal(10,2);
+    
+    select precioProducto into precio from Productos where idProducto = new.idProducto;
+    
+    set new.subtotal = precio * new.cantidad;
+end$$
+delimiter ;
+
+delimiter $$
+create trigger tr_CalcularTotal_Before_Insert
+before insert on Facturas
+for each row
+begin
+    declare total_compra decimal(10,2);
+    
+    select sum(subtotal) into total_compra 
+    from detallecompras 
+    where idCompra = new.idCompra;
+    
+    set new.total = total_compra;
+end$$
+delimiter ;
+
+call sp_AgregarUsuario("Wilson Florian","w","w","Admin");
+call sp_AgregarUsuario("Byron Pineda","b","b","Admin");
+call sp_AgregarUsuario("Roger Valladares","r","r","Admin");
+call sp_AgregarUsuario("Dennys Morales","d","d","Admin");
+call sp_AgregarUsuario("Anderson Sosa","a","a","Admin");
+call sp_AgregarUsuario("Marcos García","m","m","Admin");
+call sp_AgregarUsuario("Iosef Suarez","i","i","Admin");
+
+call sp_AgregarUsuario("Wilson","wf","wf","Empleado");
+call sp_AgregarUsuario("Byron","bp","bp","Empleado");
+call sp_AgregarUsuario("Roger","rv","rv","Empleado");
+call sp_AgregarUsuario("Dennys","dm","dm","Empleado");
+call sp_AgregarUsuario("Anderson","as","as","Empleado");
+call sp_AgregarUsuario("Marcos","mg","mg","Empleado");
+call sp_AgregarUsuario("Iosef","is","is","Empleado");
+
+call sp_ListarUsuario();
+
+call sp_AgregarProducto('Tortrix','1.5',10,'A-0010-Z');
+call sp_AgregarProducto('Pikaron','2',15,'A-0030-Z');
+call sp_AgregarProducto('Cheto','3.5',30,'A-0040-Z');
+call sp_ListarProductos();
+
+-- call sp_AgregarCompra('Pendiente','Pagado');
+-- call sp_AgregarCompra('Completada','Pagado');
+-- call sp_AgregarCompra('Pendiente','Pagado');
+-- call sp_ActualizarCompras(1,"Completada","Pagado");
+call sp_ListarCompras();
+
+
+call sp_ListarDetalleCompras();
+
+-- call sp_AgregarPagos('Efectivo',10.5,1);
+-- call sp_AgregarPagos('Tarjeta',20.5,2);
+-- call sp_ListarPagos();
+-- call sp_agregarDetalleCompra(1,1,3);
+-- call sp_ListarDetalleCompras;
+-- call sp_AgregarFactura("Efectivo",1,1,1);
+call sp_ListarFactura();
+-- call sp_AgregarCliente('Luis','224647202',1, 545);

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
@@ -26,7 +25,6 @@
       <TableView fx:id="tablaCompras" layoutX="27.0" layoutY="330.0" prefHeight="341.0" prefWidth="932.0" stylesheets="@../resource/facturaview.css" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="41.0">
          <columns>
             <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
-            <TableColumn fx:id="colCliente" prefWidth="119.0" text="CLIENTE" />
             <TableColumn fx:id="colTotal" prefWidth="139.0" text="TOTAL" />
             <TableColumn fx:id="colEstadoCompra" prefWidth="208.0" text="ESTADO DE COMPRA" />
             <TableColumn fx:id="colEstadoPago" prefWidth="196.0" text="ESTADO DE PAGO" />
@@ -58,11 +56,6 @@
                </font>
             </Label>
             <TextField fx:id="txtId" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label prefHeight="21.0" prefWidth="72.0" text="CLIENTE" GridPane.columnIndex="3" GridPane.rowIndex="3">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </Label>
             <Label text="FECHA" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -80,35 +73,6 @@
             </Label>
             <TextField fx:id="txtTotal" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
             <DatePicker fx:id="dpFecha" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ComboBox fx:id="cbCliente" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-            <GridPane prefHeight="69.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-               <columnConstraints>
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="102.0" />
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="102.0" />
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="102.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <Button fx:id="btnAgregar" mnemonicParsing="false" onAction="#cambiarNuevaCompra" prefHeight="34.0" prefWidth="91.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="AGREGAR" textFill="WHITE" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="System Bold Italic" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#cambiarEdicionCompra" prefHeight="34.0" prefWidth="91.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="EDITAR" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="System Bold Italic" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#cambiarCancelarEliminar" prefHeight="34.0" prefWidth="91.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="ELIMINAR" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="System Bold Italic" size="12.0" />
-                     </font>
-                  </Button>
-               </children>
-            </GridPane>
             <Button fx:id="btnReporte" mnemonicParsing="false" prefHeight="34.0" prefWidth="91.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="REPORTE" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="4">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
