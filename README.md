@@ -123,4 +123,12 @@ Este documento contiene los reportes diarios de avances, logros e incidencias du
 - **Dennys Morales**:  
   - **Entrega de los codigos para los productos**: No entregado.
 - **Iosef Suarez , Roger Valladares**:  
-  - Contruyeron la maqueta para el cajero. 
+  - Contruyeron la maqueta para el cajero.
+- **Wilson Matías**:  
+  - **Funcionalidad completa**: Cambio la vista de la compra y completo las funciones faltantes.
+- **Byron Pineda**:  
+  - Realizacion del cartel de la explicacion.  
+
+ **3 de junio**
+  - **Byron Pineda**:  
+  - Revision y modificacion de la entrega de matias y merge a la main.  
