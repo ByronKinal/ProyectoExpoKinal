@@ -111,7 +111,7 @@
             <Image url="@../image/PRODUCTOSSS.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnRegresar" contentDisplay="TOP" layoutX="880.0" layoutY="13.0" mnemonicParsing="false" onAction="#btnRegresarActionEvent" prefHeight="66.0" prefWidth="91.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="RETURN" textFill="WHITE">
+      <Button fx:id="btnRegresar" contentDisplay="TOP" layoutX="868.0" layoutY="13.0" mnemonicParsing="false" onAction="#btnRegresarActionEvent" prefHeight="80.0" prefWidth="103.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="RETURN" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>

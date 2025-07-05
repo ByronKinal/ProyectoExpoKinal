@@ -39,7 +39,7 @@
             </ImageView>
                 <Label layoutX="87.0" layoutY="42.0" prefHeight="13.0" prefWidth="132.0" styleClass="label-title" text="EMPLEADOS" textFill="WHITE" AnchorPane.leftAnchor="87.0" AnchorPane.topAnchor="42.0">
                     <font>
-                        <Font name="Bell MT Bold" size="24.0" />
+                        <Font name="Bell MT Bold" size="19.0" />
                     </font>
                 </Label>
 

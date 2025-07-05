@@ -18,7 +18,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="950.0" prefWidth="1920.0" stylesheets="@../resource/facturaview.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fundacionkinal.controller.FacturaController">
     <children>
-        <GridPane alignment="TOP_CENTER" layoutX="22.0" layoutY="141.0" prefHeight="795.0" prefWidth="1273.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="779.0" AnchorPane.topAnchor="141.0">
+        <GridPane alignment="TOP_CENTER" layoutX="22.0" layoutY="141.0" prefHeight="795.0" prefWidth="926.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="972.0" AnchorPane.topAnchor="141.0">
             <columnConstraints>
                 <ColumnConstraints />
             <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="565.0" minWidth="10.0" prefWidth="116.20000610351562" />
@@ -32,7 +32,8 @@
                 <RowConstraints maxHeight="82.0" minHeight="104.0" prefHeight="101.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="82.0" minHeight="104.0" prefHeight="101.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="86.0" minHeight="104.0" prefHeight="101.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="71.0" minHeight="90.0" prefHeight="101.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="120.0" minHeight="120.0" prefHeight="120.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
                 <Label GridPane.columnIndex="2" GridPane.rowIndex="1" />
@@ -42,27 +43,24 @@
                     </rotationAxis>
                 </Label>
                 <TextField fx:id="txtCodigo" prefHeight="36.0" prefWidth="500.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                <GridPane prefHeight="90.0" prefWidth="426.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                <GridPane prefHeight="90.0" prefWidth="544.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
                     <columnConstraints>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="51.600067138671875" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="252.79994888305663" minWidth="10.0" prefWidth="132.1999755859375" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="328.99998474121094" minWidth="10.0" prefWidth="176.20002441406248" />
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="328.99998474121094" minWidth="10.0" prefWidth="71.7999908447265" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="51.600067138671875" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="252.79994888305663" minWidth="10.0" prefWidth="200.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="328.99998474121094" minWidth="10.0" prefWidth="200.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="71.7999908447265" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#cambiarCancelarEliminar" prefHeight="41.0" prefWidth="113.0" text="ELIMINAR" textFill="WHITE" GridPane.columnIndex="1">
+                        <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#cambiarCancelarEliminar" prefHeight="100.0" prefWidth="175.0" text="ELIMINAR" textFill="WHITE" GridPane.columnIndex="1">
                             <font>
                                 <Font name="System Bold Italic" size="12.0" />
                             </font>
-                            <styleClass>
-                                <String fx:value="btnRegresar" />
-                                <String fx:value="label-textField" />
-                            </styleClass>
                         </Button>
-                  <Button fx:id="btnFinalizar" mnemonicParsing="false" onAction="#FinalizarPedido" prefHeight="46.0" prefWidth="150.0" text="FINALIZAR" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                  <Button fx:id="btnFinalizar" mnemonicParsing="false" onAction="#FinalizarPedido" prefHeight="100.0" prefWidth="175.0" text="FINALIZAR" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
                     </children>
                 </GridPane>
                 <Label GridPane.rowIndex="1" />
@@ -97,23 +95,8 @@
         </GridPane>
         <Label layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="12.0" />
         <Label layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="97.0" />
-      <ImageView fitHeight="98.0" fitWidth="217.0" layoutX="13.0" layoutY="7.0" pickOnBounds="true">
-         <image>
-            <Image url="@../image/Naranja.png" />
-         </image>
-      </ImageView>
-        <Label layoutX="121.0" layoutY="28.0" prefHeight="58.0" prefWidth="196.0" styleClass="label-title" stylesheets="@../resource/comprasview.css" text="CAJA KINAL">
-            <font>
-                <Font name="Bell MT" size="33.0" />
-            </font>
-        </Label>
-      <ImageView fitHeight="86.0" fitWidth="86.0" layoutX="22.0" layoutY="14.0" preserveRatio="true">
-         <image>
-            <Image url="@../image/Logo.png" />
-         </image>
-      </ImageView>
-        <Button fx:id="btnRegresar" layoutX="1392.0" layoutY="38.0" mnemonicParsing="false" onAction="#btnRegresarActionEvent" styleClass="buttonRegresar" text="REGRESAR" />
-        <TableView fx:id="tablaProductos" layoutX="787.0" layoutY="141.0" prefHeight="795.0" prefWidth="719.0" AnchorPane.bottomAnchor="14.0" AnchorPane.topAnchor="141.0">
+        <Button fx:id="btnRegresar" layoutX="1725.0" layoutY="41.0" minHeight="75.0" mnemonicParsing="false" onAction="#btnRegresarActionEvent" styleClass="buttonRegresar" text="REGRESAR" />
+        <TableView fx:id="tablaProductos" layoutX="1001.0" layoutY="142.0" prefHeight="795.0" prefWidth="859.0" AnchorPane.bottomAnchor="13.0" AnchorPane.topAnchor="142.0">
             <columns>
                 <TableColumn fx:id="colId" prefWidth="63.0" text="ID" />
                 <TableColumn fx:id="colCodigo" minWidth="0.0" prefWidth="178.0" text="CODIGO" />
@@ -135,5 +118,20 @@
             <URL value="@../resource/comprasview.css" />
          </stylesheets>
         </TableView>
+      <ImageView fitHeight="77.0" fitWidth="279.0" layoutX="26.0" layoutY="18.0" pickOnBounds="true">
+         <image>
+            <Image url="@../image/Naranja.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="107.0" layoutY="39.0" text="CAJA KINAL">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="30.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="71.0" fitWidth="80.0" layoutX="26.0" layoutY="21.0" preserveRatio="true">
+         <image>
+            <Image url="@../image/Logo.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

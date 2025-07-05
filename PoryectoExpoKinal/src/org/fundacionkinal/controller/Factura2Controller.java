@@ -63,8 +63,8 @@ public class Factura2Controller implements Initializable {
     }
 
     private void deshabilitarCampos() {
-        txtSubtotal.setDisable(true);
-        txtTotal.setDisable(true);
+        txtSubtotal.setDisable(!true);
+        txtTotal.setDisable(!true);
     }
 
     private void cargarEmpleados() {

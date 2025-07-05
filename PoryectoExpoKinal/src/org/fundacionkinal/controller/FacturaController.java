@@ -251,9 +251,6 @@ public class FacturaController implements Initializable {
 
     public void limpiarTexto() {
         txtCodigo.clear();
-        txtProducto.clear();
-        txtPrecio.clear();
-        txtCantidad.clear();
         txtCodigo.requestFocus();
     }
 

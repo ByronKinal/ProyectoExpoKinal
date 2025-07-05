@@ -11,19 +11,19 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1500.0" stylesheets="@../resource/facturaview.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fundacionkinal.controller.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../resource/facturaview.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fundacionkinal.controller.LoginController">
    <children>
-      <ImageView fitHeight="202.0" fitWidth="204.0" layoutX="665.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="202.0" fitWidth="204.0" layoutX="891.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/LOGIN.png" />
          </image>
       </ImageView>
-      <GridPane layoutX="462.0" layoutY="314.0" prefHeight="372.0" prefWidth="608.0" styleClass="grid-pane" stylesheets="@../resource/facturaview.css">
+      <GridPane layoutX="656.0" layoutY="415.0" prefHeight="372.0" prefWidth="620.0" styleClass="grid-pane" stylesheets="@../resource/facturaview.css">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="48.599993896484364" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.8000061035156" minWidth="10.0" prefWidth="243.8000061035156" />
-          <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" maxWidth="401.99993896484375" minWidth="10.0" prefWidth="375.60003662109375" />
-            <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" maxWidth="378.0" minWidth="10.0" prefWidth="60.39996337890625" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="65.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.8000061035156" minWidth="10.0" prefWidth="170.0" />
+          <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" maxWidth="401.99993896484375" minWidth="10.0" prefWidth="313.0" />
+            <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" maxWidth="378.0" minWidth="10.0" prefWidth="79.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -31,20 +31,27 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="EMAIL" textFill="WHITE" GridPane.columnIndex="1">
+            <Label prefHeight="43.0" prefWidth="185.0" text="EMAIL" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                <font>
                   <Font size="29.0" />
                </font>
             </Label>
-            <Label text="PASSWORD" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label prefHeight="43.0" prefWidth="185.0" text="PASSWORD" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <font>
                   <Font size="29.0" />
                </font>
             </Label>
-            <TextField fx:id="txtCorreo" prefHeight="36.0" prefWidth="270.0" GridPane.columnIndex="2" />
-            <TextField fx:id="txtContraseña" prefHeight="36.0" prefWidth="270.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button fx:id="btnIngresar" mnemonicParsing="false" onAction="#clickManejadorEventos" prefHeight="41.0" prefWidth="126.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="INGRESAR" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <TextField fx:id="txtCorreo" prefHeight="55.0" prefWidth="325.0" GridPane.columnIndex="2">
+               <font>
+                  <Font size="24.0" />
+               </font></TextField>
+            <TextField fx:id="txtContraseña" prefHeight="55.0" prefWidth="325.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <font>
+                  <Font size="24.0" />
+               </font></TextField>
+            <Button fx:id="btnIngresar" mnemonicParsing="false" onAction="#clickManejadorEventos" prefHeight="70.0" prefWidth="175.0" stylesheets="@../resource/facturaview.css" text="INGRESAR" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
       </GridPane>
+      <Button fx:id="btnCerrar" layoutX="58.0" layoutY="48.0" mnemonicParsing="false" onAction="#clickManejadorEventos" text="CERRAR" />
    </children>
 </AnchorPane>

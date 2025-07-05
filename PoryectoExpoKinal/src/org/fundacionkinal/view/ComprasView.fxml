@@ -106,12 +106,12 @@
             </Label>
          </children>
       </GridPane>
-      <ImageView fitHeight="80.0" fitWidth="233.0" layoutX="27.0" layoutY="8.0" pickOnBounds="true" styleClass="img-ovalada">
+      <ImageView fitHeight="80.0" fitWidth="250.0" layoutX="27.0" layoutY="8.0" pickOnBounds="true" styleClass="img-ovalada">
          <image>
             <Image url="@../image/Naranja.png" />
          </image>
       </ImageView>
-      <Label layoutX="106.0" layoutY="14.0" prefHeight="66.0" prefWidth="157.0" styleClass="label-title" stylesheets="@../resource/facturaview.css" text="COMPRA" textAlignment="CENTER" AnchorPane.leftAnchor="106.0">
+      <Label layoutX="106.0" layoutY="14.0" prefHeight="66.0" prefWidth="170.0" styleClass="label-title" stylesheets="@../resource/facturaview.css" text="COMPRA" textAlignment="CENTER" AnchorPane.leftAnchor="106.0">
          <font>
             <Font name="Bell MT" size="30.0" />
          </font>

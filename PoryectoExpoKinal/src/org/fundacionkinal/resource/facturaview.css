@@ -86,7 +86,7 @@ h1, h2, h3, h4, h5, h6, p, span, div {
     -fx-text-fill: #ffffff;
     -fx-font-family: "Arial Narrow";
     -fx-font-weight: bold;
-    -fx-font-size: 20px;
+    -fx-font-size: 30px;
     -fx-padding: 10px 20px;
     -fx-border-color: #1e3f7f;
     -fx-border-width: 1px;
@@ -203,5 +203,10 @@ h1, h2, h3, h4, h5, h6, p, span, div {
     -fx-scale-x: 1.03;
     -fx-scale-y: 1.03;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 5, 0.15, 0, 0);
+}
+
+.labelTotales{
+    -fx-background-color: transparent;
+    -fx-text-fill:white;
 }
 }

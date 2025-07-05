@@ -59,7 +59,7 @@ public class Main extends Application {
     public void getLoginView() {
         try {
             LoginController control
-                    = (LoginController) cambiarEscena("LoginView.fxml", 1500, 800);
+                    = (LoginController) cambiarEscena("LoginView.fxml", 1920, 1080);
             control.setPrincipal(this);
         } catch (Exception ex) {
             System.out.println("Error al ir al login: " + ex.getMessage());

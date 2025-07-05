@@ -32,6 +32,7 @@ public class LoginController implements Initializable {
     }
     
     @FXML private Button btnIngresar;
+    @FXML private Button btnCerrar;
     @FXML private TextField txtCorreo;
     @FXML private TextField txtContraseña;
     @Override
@@ -66,6 +67,9 @@ public class LoginController implements Initializable {
     private void clickManejadorEventos(ActionEvent evento) {
         if (evento.getSource() == btnIngresar) {
             iniciarSesion();
+        }
+        if (evento.getSource() == btnCerrar) {
+            System.exit(0);
         }
     }
     
