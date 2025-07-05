@@ -1,6 +1,6 @@
-drop database if exists cajeroDB;
-create database cajeroDB;
-use cajeroDB;
+drop database if exists cajeroDB2;
+create database cajeroDB2;
+use cajeroDB2;
 
 create table Usuarios (
 	idUsuario int auto_increment,

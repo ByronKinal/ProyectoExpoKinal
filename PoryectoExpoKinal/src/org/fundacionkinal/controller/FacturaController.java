@@ -24,7 +24,7 @@ import org.fundacionkinal.system.Main;
 public class FacturaController implements Initializable {
 
     @FXML
-    private Button btnRegresar, btnAgregar, btnEliminar, btnFinalizar;
+    private Button btnRegresar, btnEliminar, btnFinalizar;
 
     @FXML
     private TableView<Producto> tablaProductos;
@@ -131,7 +131,7 @@ public class FacturaController implements Initializable {
 
                 txtProducto.setText(rs.getString("nombreProducto"));
                 txtPrecio.setText(String.valueOf(rs.getDouble("precioProducto")));
-                btnAgregar.setDisable(false);
+                 
                 agregarProducto();
             }
         } catch (SQLException e) {
@@ -210,7 +210,7 @@ public class FacturaController implements Initializable {
 
                 limpiarTexto();
                 cargarDatos();
-                btnAgregar.setDisable(true);
+                 
             }
         } catch (SQLException e) {
             mostrarAlerta("Error al agregar detalle de compra: " + e.getMessage());
@@ -285,7 +285,7 @@ public class FacturaController implements Initializable {
         txtProducto.setDisable(true);
         txtPrecio.setDisable(true);
         txtCantidad.setDisable(true);
-        btnAgregar.setDisable(true);
+         
     }
 
     public void setPrincipal(Main principal) {

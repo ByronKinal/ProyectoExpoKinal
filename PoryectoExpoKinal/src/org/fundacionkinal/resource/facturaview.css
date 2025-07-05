@@ -153,7 +153,7 @@ h1, h2, h3, h4, h5, h6, p, span, div {
 
 .label-title {
     -fx-font-family: "Sans-Serif";
-    -fx-font-size: 32px;
+    -fx-font-size: 36px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
     -fx-alignment: CENTER_LEFT;
