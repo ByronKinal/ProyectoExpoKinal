@@ -1,18 +1,33 @@
 
 package org.fundacionkinal.controller;
 
-import java.net.URL;
+
+
 import java.sql.*;
-import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import org.fundacionkinal.database.Conexion;
 import org.fundacionkinal.model.Usuario;
+import org.fundacionkinal.report.Report;
 import org.fundacionkinal.system.Main;
 
+import java.io.InputStream;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Map;
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import java.sql.Connection;
+import java.util.HashMap;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.RadioButton;
 /**
  * FXML Controller class
  *
@@ -153,9 +168,37 @@ public class Factura2Controller implements Initializable {
                 mostrarAlerta("Error al registrar pago: " + e.getMessage());
                 e.printStackTrace();
             }
+            
         }
+        imprimirReporte();
     }
 
+        //Map parametros
+    private Map<String , Object> parametros;
+    //cargador de imputStream
+    private InputStream cargarReporte(String urlReporte){
+        InputStream reporte = null;
+        try{
+        reporte = Main.class.getResourceAsStream(urlReporte);
+        reporte.getClass().getResource(urlReporte);
+        }catch (Exception e){
+            System.out.println("Error al cargar Reporte"+urlReporte+e.getMessage());   
+           
+        }
+         return reporte;
+    }
+    
+     private void imprimirReporte(){
+        Connection conexion = Conexion.getInstancia().getConexion();
+        parametros = new HashMap<String, Object>();
+        
+        Integer idCompra = 1;
+        String url = "/org/fundacionkinal/report/";
+        parametros.put("idCompra", idCompra);
+        parametros.put("url",getClass().getResource(url).toString());
+        Report.generarReporte(conexion, parametros, cargarReporte("/org/fundacionkinal/report/Factura.jasper"));
+        Report.mostrarReporte();
+    }
     @FXML
     private void cancelarPedido() {
         try {
