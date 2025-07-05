@@ -188,17 +188,28 @@ public class Factura2Controller implements Initializable {
          return reporte;
     }
     
-     private void imprimirReporte(){
-        Connection conexion = Conexion.getInstancia().getConexion();
-        parametros = new HashMap<String, Object>();
-        
-        Integer idCompra = 1;
-        String url = "/org/fundacionkinal/report/";
-        parametros.put("idCompra", idCompra);
-        parametros.put("url",getClass().getResource(url).toString());
-        Report.generarReporte(conexion, parametros, cargarReporte("/org/fundacionkinal/report/Factura.jasper"));
-        Report.mostrarReporte();
-    }
+        private void imprimirReporte() {
+            Connection conexion = Conexion.getInstancia().getConexion();
+            parametros = new HashMap<String, Object>();
+
+            try {
+                Statement stmt = conexion.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT MAX(idCompra) FROM Compras");
+
+                int idCompra = 1;
+                if (rs.next()) {
+                    idCompra = rs.getInt(1);
+                }
+
+                String url = "/org/fundacionkinal/report/";
+                parametros.put("idCompra", idCompra);
+                parametros.put("url", getClass().getResource(url).toString());
+                Report.generarReporte(conexion, parametros, cargarReporte("/org/fundacionkinal/report/Factura.jasper"));
+                Report.mostrarReporte();
+            } catch (SQLException e) {
+                mostrarAlerta("Error al obtener última compra: " + e.getMessage());
+            }
+        }
     @FXML
     private void cancelarPedido() {
         try {
