@@ -137,7 +137,7 @@ public class ComprasController implements Initializable {
         ArrayList<Compra> compras = new ArrayList<>();
         try {
             Connection conexion = Conexion.getInstancia().getConexion();
-            String sql = "{call sp_ListarCompras()}";
+            String sql = "{call sp_listarCompras()}";
             CallableStatement stmt = conexion.prepareCall(sql);
             ResultSet rs = stmt.executeQuery();
 

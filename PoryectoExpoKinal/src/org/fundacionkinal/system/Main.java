@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.fundacionkinal.controller.ComprasController;
 import org.fundacionkinal.controller.EmpleadoController;
@@ -32,7 +33,9 @@ public class Main extends Application {
     @Override
     public void start(Stage escenarioPrincipal) throws Exception {
         this.escenarioPrincipal = escenarioPrincipal;
-        escenarioPrincipal.setTitle("SISTEMA DE CAJERO");
+        escenarioPrincipal.setTitle("CAJA KINAL");
+        Image icono = new javafx.scene.image.Image("/org/fundacionkinal/image/Logo.png");
+        escenarioPrincipal.getIcons().add(icono);
         getLoginView();
         escenarioPrincipal.show();
     }
@@ -56,7 +59,7 @@ public class Main extends Application {
     public void getLoginView() {
         try {
             LoginController control
-                    = (LoginController) cambiarEscena("LoginView.fxml", 757, 500);
+                    = (LoginController) cambiarEscena("LoginView.fxml", 1920, 1080);
             control.setPrincipal(this);
         } catch (Exception ex) {
             System.out.println("Error al ir al login: " + ex.getMessage());
@@ -110,7 +113,7 @@ public class Main extends Application {
     public void getFactura2View() {
     try {
         Factura2Controller control
-                = (Factura2Controller) cambiarEscena("Factura2View.fxml", 1920, 1080);
+                = (Factura2Controller) cambiarEscena("Factura2View.fxml", 1920, 1000);
         control.setPrincipal(this);
     } catch (Exception ex) {
         System.out.println("Error al ir a facturas: " + ex.getMessage());

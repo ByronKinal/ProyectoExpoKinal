@@ -1,4 +1,3 @@
-
 package org.fundacionkinal.controller;
 
 import java.net.URL;
@@ -25,7 +24,7 @@ import org.fundacionkinal.system.Main;
 public class FacturaController implements Initializable {
 
     @FXML
-    private Button btnRegresar, btnAgregar, btnEliminar, btnFinalizar;
+    private Button btnRegresar, btnEliminar, btnFinalizar;
 
     @FXML
     private TableView<Producto> tablaProductos;
@@ -67,22 +66,24 @@ public class FacturaController implements Initializable {
 
     private void crearNuevaCompra() {
         try {
-            Connection conexion = Conexion.getInstancia().getConexion();
-            Statement stmt = conexion.createStatement();
+            if (idCompraActual == 0) {
+                Connection conexion = Conexion.getInstancia().getConexion();
+                Statement stmt = conexion.createStatement();
 
-            stmt.executeUpdate("INSERT INTO Compras(estadoCompra, estadoPago) VALUES ('Pendiente', 'Pendiente')",
-                    Statement.RETURN_GENERATED_KEYS);
+                stmt.executeUpdate("INSERT INTO Compras(estadoCompra, estadoPago) VALUES ('Pendiente', 'Pendiente')",
+                        Statement.RETURN_GENERATED_KEYS);
 
-            ResultSet generatedKeys = stmt.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                idCompraActual = generatedKeys.getInt(1);
-                System.out.println("Nueva compra creada con ID: " + idCompraActual);
-            } else {
-                mostrarAlerta("No se pudo obtener el ID de la nueva compra");
+                ResultSet generatedKeys = stmt.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    idCompraActual = generatedKeys.getInt(1);
+                    System.out.println("Nueva compra creada con ID: " + idCompraActual);
+                } else {
+                    mostrarAlerta("No se pudo obtener el ID de la nueva compra");
+                }
+
+                generatedKeys.close();
+                stmt.close();
             }
-
-            generatedKeys.close();
-            stmt.close();
         } catch (SQLException e) {
             mostrarAlerta("Error al crear nueva compra: " + e.getMessage());
             e.printStackTrace();
@@ -115,15 +116,23 @@ public class FacturaController implements Initializable {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                cantidadActual++;
-                txtCantidad.setText(String.valueOf(cantidadActual));
+                String sqlVerificar = "SELECT cantidad FROM DetalleCompras WHERE idCompra = ? AND idProducto = ?";
+                PreparedStatement stmtVerificar = conexion.prepareStatement(sqlVerificar);
+                stmtVerificar.setInt(1, idCompraActual);
+                stmtVerificar.setInt(2, rs.getInt("idProducto"));
+                ResultSet rsVerificar = stmtVerificar.executeQuery();
+
+                if (rsVerificar.next()) {
+                    int cantidadActual = rsVerificar.getInt("cantidad");
+                    txtCantidad.setText(String.valueOf(cantidadActual + 1));
+                } else {
+                    txtCantidad.setText("1");
+                }
 
                 txtProducto.setText(rs.getString("nombreProducto"));
                 txtPrecio.setText(String.valueOf(rs.getDouble("precioProducto")));
-
-                btnAgregar.setDisable(false);
-            } else {
-                mostrarAlerta("Producto no encontrado con el código: " + codigo);
+                 
+                agregarProducto();
             }
         } catch (SQLException e) {
             mostrarAlerta("Error al buscar producto: " + e.getMessage());
@@ -163,9 +172,7 @@ public class FacturaController implements Initializable {
     @FXML
     public void agregarProducto() {
         try {
-
             crearNuevaCompra();
-            
             String codigo = txtCodigo.getText();
             Connection conexion = Conexion.getInstancia().getConexion();
 
@@ -176,6 +183,7 @@ public class FacturaController implements Initializable {
 
             if (rsProducto.next()) {
                 int idProducto = rsProducto.getInt("idProducto");
+                int cantidad = Integer.parseInt(txtCantidad.getText());
 
                 String sqlVerificar = "SELECT cantidad FROM DetalleCompras WHERE idCompra = ? AND idProducto = ?";
                 PreparedStatement stmtVerificar = conexion.prepareStatement(sqlVerificar);
@@ -184,14 +192,11 @@ public class FacturaController implements Initializable {
                 ResultSet rsVerificar = stmtVerificar.executeQuery();
 
                 if (rsVerificar.next()) {
-                    int cantidadActual = rsVerificar.getInt("cantidad");
-                    int nuevaCantidad = cantidadActual + this.cantidadActual;
-
                     String sqlActualizar = "UPDATE DetalleCompras SET cantidad = ?, subtotal = (SELECT precioProducto FROM Productos WHERE idProducto = ?) * ? WHERE idCompra = ? AND idProducto = ?";
                     PreparedStatement stmtActualizar = conexion.prepareStatement(sqlActualizar);
-                    stmtActualizar.setInt(1, nuevaCantidad);
+                    stmtActualizar.setInt(1, cantidad);
                     stmtActualizar.setInt(2, idProducto);
-                    stmtActualizar.setInt(3, nuevaCantidad);
+                    stmtActualizar.setInt(3, cantidad);
                     stmtActualizar.setInt(4, idCompraActual);
                     stmtActualizar.setInt(5, idProducto);
                     stmtActualizar.executeUpdate();
@@ -199,18 +204,19 @@ public class FacturaController implements Initializable {
                     CallableStatement procedimiento = conexion.prepareCall("{call sp_agregarDetalleCompra(?, ?, ?)}");
                     procedimiento.setInt(1, idCompraActual);
                     procedimiento.setInt(2, idProducto);
-                    procedimiento.setInt(3, cantidadActual);
+                    procedimiento.setInt(3, cantidad);
                     procedimiento.execute();
                 }
 
                 limpiarTexto();
-                cantidadActual = 0;
                 cargarDatos();
-                btnAgregar.setDisable(true);
+                 
             }
         } catch (SQLException e) {
             mostrarAlerta("Error al agregar detalle de compra: " + e.getMessage());
             e.printStackTrace();
+        } catch (NumberFormatException e) {
+            mostrarAlerta("La cantidad debe ser un número válido");
         }
     }
 
@@ -245,9 +251,6 @@ public class FacturaController implements Initializable {
 
     public void limpiarTexto() {
         txtCodigo.clear();
-        txtProducto.clear();
-        txtPrecio.clear();
-        txtCantidad.clear();
         txtCodigo.requestFocus();
     }
 
@@ -279,7 +282,7 @@ public class FacturaController implements Initializable {
         txtProducto.setDisable(true);
         txtPrecio.setDisable(true);
         txtCantidad.setDisable(true);
-        btnAgregar.setDisable(true);
+         
     }
 
     public void setPrincipal(Main principal) {

@@ -1,6 +1,6 @@
-drop database if exists cajeroDB;
-create database cajeroDB;
-use cajeroDB;
+drop database if exists cajeroDB2;
+create database cajeroDB2;
+use cajeroDB2;
 
 create table Usuarios (
 	idUsuario int auto_increment,
@@ -128,13 +128,15 @@ CREATE TABLE AuditoriaProductos (
 );
 create table Cliente(
 	idCliente int auto_increment,
-	nombreCliente varchar (128),
-    NIT varchar(128),
-    Numero int(8),
+	nombreCliente varchar (128) default 'Consumidor Final',
+    NIT varchar(128) default 'Consumidor Final',
     idCompra int,
+    idFactura int,
     constraint pk_clientes primary key (idCliente), 
     constraint fk_facturas_cliente foreign key (idCompra)
-		references Compras(idCompra) on delete cascade
+		references Compras(idCompra) on delete cascade,
+	constraint fk_facturas2_cliente foreign key (idFactura)
+		references Facturas(idFactura) on delete cascade
 );
 
 -- -----------------------------------------------------------------------------------------------------------CRUD--------------------------------------------------------------------------------------------------------------------
@@ -146,14 +148,24 @@ create procedure sp_AgregarCliente(
 		in p_nombreCliente varchar(200),
 		in p_NIT varchar(200),
 		in p_idCompra int,
-        in p_numero int)
+        in p_idFactura int)
 	begin
-		insert into CLiente(nombreCliente, NIT,idCompra,Numero)
-		values(p_nombreCliente, p_NIT, p_idCompra,p_numero);
+		insert into CLiente(nombreCliente, NIT,idCompra,idFactura)
+		values(p_nombreCliente, p_NIT, p_idCompra,p_idFactura);
 	end;
 $$
 DELIMITER ;
---
+
+DELIMITER $$ 
+create procedure sp_AgregarCliente2(
+		in p_idCompra int,
+        in p_idFactura int)
+	begin
+		insert into CLiente(idCompra,idFactura)
+		values(p_idCompra,p_idFactura);
+	end;
+$$
+DELIMITER ;
 
 -- READ:
 DELIMITER $$
@@ -164,7 +176,7 @@ create procedure sp_ListarClientes()
         nombreCliente as CLIENTE,
         NIT as NIT,
         idCompra as COMPRA,
-        Numero as NUMERO
+        idFactura as FACTURA
         from Cliente;
     end;
 $$
@@ -178,14 +190,14 @@ create procedure sp_ActualizarCliente(
 		in p_nombreCliente varchar(200),
 		in p_NIT varchar(200),
 		in p_idCompra int,
-        in p_numero int)
+        in p_idFactura int)
 	begin
 		update Cliente
 			set
 				nombreCliente = p_nombreCliente,
 				NIT = p_NIT,
 				idCompra = p_idCompra,
-                Numero = p_numero
+                idFactura = p_idFactura
             where 
 				p_idCliente = idCliente;
 		
@@ -1018,9 +1030,16 @@ call sp_AgregarUsuario("Iosef","is","is","Empleado");
 
 call sp_ListarUsuario();
 
-call sp_AgregarProducto('Tortrix','1.5',10,'A-0010-Z');
-call sp_AgregarProducto('Pikaron','2',15,'A-0030-Z');
-call sp_AgregarProducto('Cheto','3.5',30,'A-0040-Z');
+call sp_AgregarProducto('Tortrix de limón','2.00',30,'10003');
+call sp_AgregarProducto('Galleta club extra','1.00',30,'10002');
+call sp_AgregarProducto('Diccionario básico','30.00',30,'10011');
+call sp_AgregarProducto('Botella pequeña de alcohol','3.00',30,'10009');
+call sp_AgregarProducto('Botella de agua pura cielo','2.00',30,'10008');
+call sp_AgregarProducto('botella de té fuze tea','3.5',30,'10005');
+call sp_AgregarProducto('Botella de refresco rica roja','2.5',30,'10014');
+call sp_AgregarProducto('Bolsa de sal yodada','1.00',30,'10007');
+call sp_AgregarProducto('Chobix de barbacoa','1.00',30,'10004');
+call sp_AgregarProducto('Tortrix picante','2.00',30,'10006');
 call sp_ListarProductos();
 
 -- call sp_AgregarCompra('Pendiente','Pagado');
@@ -1039,4 +1058,5 @@ call sp_ListarDetalleCompras();
 -- call sp_ListarDetalleCompras;
 -- call sp_AgregarFactura("Efectivo",1,1,1);
 call sp_ListarFactura();
+call sp_ListarClientes();
 -- call sp_AgregarCliente('Luis','224647202',1, 545);

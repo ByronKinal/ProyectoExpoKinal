@@ -5,7 +5,7 @@
 .mainFxmlClass {
 .body {
     font-family: Arial Narrow;
-    font-size: 16px;
+    font-size: 20px;
     line-height: 1.5;
     color: #000;
     background-color: #fff;
@@ -86,7 +86,22 @@ h1, h2, h3, h4, h5, h6, p, span, div {
     -fx-text-fill: #ffffff;
     -fx-font-family: "Arial Narrow";
     -fx-font-weight: bold;
-    -fx-font-size: 14px;
+    -fx-font-size: 30px;
+    -fx-padding: 10px 20px;
+    -fx-border-color: #1e3f7f;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.1, 0, 3);
+    -fx-cursor: hand;
+}
+
+.buttonRegresar {
+    -fx-background-color: #f49c29;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
     -fx-padding: 10px 20px;
     -fx-border-color: #1e3f7f;
     -fx-border-width: 1px;
@@ -138,7 +153,7 @@ h1, h2, h3, h4, h5, h6, p, span, div {
 
 .label-title {
     -fx-font-family: "Sans-Serif";
-    -fx-font-size: 32px;
+    -fx-font-size: 36px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
     -fx-alignment: CENTER_LEFT;
@@ -146,7 +161,7 @@ h1, h2, h3, h4, h5, h6, p, span, div {
 
 .label-textField {
     -fx-font-family: "Arial Narrow";
-    -fx-font-size: 12px;
+    -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-text-fill: #f2f4f2;
     -fx-alignment: CENTER_LEFT;
@@ -188,5 +203,10 @@ h1, h2, h3, h4, h5, h6, p, span, div {
     -fx-scale-x: 1.03;
     -fx-scale-y: 1.03;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 5, 0.15, 0, 0);
+}
+
+.labelTotales{
+    -fx-background-color: transparent;
+    -fx-text-fill:white;
 }
 }
