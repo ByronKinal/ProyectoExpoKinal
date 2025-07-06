@@ -128,8 +128,8 @@ CREATE TABLE AuditoriaProductos (
 );
 create table Cliente(
 	idCliente int auto_increment,
-	nombreCliente varchar (128) default 'Consumidor final',
-    NIT varchar(128) default 'Consumidor final',
+	nombreCliente varchar (128) default 'Consumidor Final',
+    NIT varchar(128) default 'Consumidor Final',
     idCompra int,
     idFactura int,
     constraint pk_clientes primary key (idCliente), 
