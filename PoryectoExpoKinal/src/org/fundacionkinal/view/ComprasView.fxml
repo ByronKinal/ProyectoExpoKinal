@@ -20,9 +20,9 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1000.0" styleClass="root" stylesheets="@../resource/comprasview.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fundacionkinal.controller.ComprasController">
+<AnchorPane id="AnchorPane" prefHeight="1080.0" prefWidth="1920.0" styleClass="root" stylesheets="@../resource/tablasview.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fundacionkinal.controller.ComprasController">
    <children>
-      <TableView fx:id="tablaCompras" layoutX="27.0" layoutY="330.0" prefHeight="341.0" prefWidth="932.0" stylesheets="@../resource/facturaview.css" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="41.0">
+      <TableView fx:id="tablaCompras" layoutX="27.0" layoutY="330.0" prefHeight="670.0" prefWidth="1852.0" stylesheets="@../resource/facturaview.css" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="41.0">
          <columns>
             <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
             <TableColumn fx:id="colTotal" prefWidth="139.0" text="TOTAL" />
@@ -34,12 +34,12 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <GridPane layoutX="27.0" layoutY="96.0" prefHeight="219.0" prefWidth="932.0" styleClass="grid-pane" stylesheets="@../resource/facturaview.css" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="41.0">
+      <GridPane alignment="CENTER" layoutX="27.0" layoutY="96.0" prefHeight="219.0" prefWidth="932.0" styleClass="grid-pane" stylesheets="@../resource/facturaview.css" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="27.0">
          <columnConstraints>
-            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="156.0" minWidth="10.0" prefWidth="138.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
             <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="SOMETIMES" maxWidth="351.0" minWidth="10.0" prefWidth="321.0" />
-            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="164.0" />
-            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="49.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" />
             <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="404.0" minWidth="10.0" prefWidth="203.0" />
          </columnConstraints>
          <rowConstraints>
@@ -55,13 +55,13 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="txtId" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="FECHA" GridPane.rowIndex="2">
+            <TextField fx:id="txtId" prefHeight="36.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="FECHA" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label text="TOTAL" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <Label text="TOTAL" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -71,13 +71,8 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="txtTotal" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <DatePicker fx:id="dpFecha" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button fx:id="btnReporte" mnemonicParsing="false" prefHeight="41.0" prefWidth="113.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="REPORTE" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="4">
-               <font>
-                  <Font name="System Bold Italic" size="12.0" />
-               </font>
-            </Button>
+            <TextField fx:id="txtTotal" prefHeight="36.0" prefWidth="400.0" styleClass="label-textField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <DatePicker fx:id="dpFecha" prefHeight="45.0" prefWidth="516.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
             <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="295.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
                   <RadioButton fx:id="rbPendienteCompra" alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="19.0" prefWidth="121.0" text="PENDIENTE">

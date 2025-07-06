@@ -70,7 +70,7 @@ public class Main extends Application {
     public void getMenuAdminView() {
         try {
             MenuAdminController control
-                    = (MenuAdminController) cambiarEscena("MenuAdminView.fxml", 1282.4, 585.6);
+                    = (MenuAdminController) cambiarEscena("MenuAdminView.fxml", 1920, 1080);
             control.setPrincipal(this);
         } catch (Exception ex) {
             System.out.println("Error al ir a menuAdmin: " + ex.getMessage());
@@ -113,7 +113,7 @@ public class Main extends Application {
     public void getFactura2View() {
     try {
         Factura2Controller control
-                = (Factura2Controller) cambiarEscena("Factura2View.fxml", 1920, 1000);
+                = (Factura2Controller) cambiarEscena("Factura2View.fxml", 1920, 1080);
         control.setPrincipal(this);
     } catch (Exception ex) {
         System.out.println("Error al ir a facturas: " + ex.getMessage());
@@ -124,7 +124,7 @@ public class Main extends Application {
     public void getComprasView() {
         try {
             ComprasController control
-                    = (ComprasController) cambiarEscena("ComprasView.fxml", 1000, 700);
+                    = (ComprasController) cambiarEscena("ComprasView.fxml", 1920, 1080);
             control.setPrincipal(this);
         } catch (Exception ex) {
             System.out.println("Error al ir a compras: " + ex.getMessage());
@@ -135,7 +135,7 @@ public class Main extends Application {
     public void getEmpleadosView() {
         try {
             EmpleadoController control
-                    = (EmpleadoController) cambiarEscena("EmpleadoView.fxml", 1000, 700);
+                    = (EmpleadoController) cambiarEscena("EmpleadoView.fxml", 1920, 1080);
             control.setPrincipal(this);
         } catch (Exception ex) {
             System.out.println("Error al ir a empleados: " + ex.getMessage());
@@ -146,7 +146,7 @@ public class Main extends Application {
     public void getProductosView() {
         try {
             ProductosController control
-                    = (ProductosController) cambiarEscena("ProductosView.fxml", 1000, 700);
+                    = (ProductosController) cambiarEscena("ProductosView.fxml", 1920, 1080);
             control.setPrincipal(this);
         } catch (Exception ex) {
             System.out.println("Error al ir a productos: " + ex.getMessage());

@@ -11,90 +11,14 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="999.0" stylesheets="@../resource/facturaview.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fundacionkinal.controller.ProductosController">
+<AnchorPane id="AnchorPane" prefHeight="1080.0" prefWidth="1920.0" styleClass="root" stylesheets="@../resource/tablasview.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fundacionkinal.controller.ProductosController">
    <children>
-      <Label layoutX="110.0" layoutY="25.0" prefHeight="47.0" prefWidth="240.0" styleClass="label-title" stylesheets="@../resource/facturaview.css" text="PRODUCTOS">
-         <font>
-            <Font name="Bell MT Bold" size="36.0" />
-         </font>
-      </Label>
-      <GridPane layoutX="28.0" layoutY="136.0" prefHeight="195.0" prefWidth="943.0" styleClass="grid-pane" stylesheets="@../resource/facturaview.css">
-         <columnConstraints>
-            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="275.0" minWidth="10.0" prefWidth="93.0" />
-            <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="474.0" minWidth="10.0" prefWidth="339.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="162.0" minWidth="8.0" prefWidth="85.0" />
-            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="146.0" />
-            <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="323.0" minWidth="10.0" prefWidth="302.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <Label text="ID">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font></Label>
-            <TextField fx:id="txtId" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="1" />
-            <Label text="NOMBRE" GridPane.rowIndex="1">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font></Label>
-            <Label text="PRECIO" GridPane.rowIndex="2">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font></Label>
-            <Label text="STOCK" GridPane.columnIndex="3">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font></Label>
-            <Label text="CODIGO DE BARRA" GridPane.columnIndex="3" GridPane.rowIndex="1">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font></Label>
-            <TextField fx:id="txtNombre" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="txtPrecio" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="txtStock" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="4" />
-            <TextField fx:id="txtCodigoBarras" prefHeight="36.0" prefWidth="275.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <GridPane prefHeight="48.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <columnConstraints>
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="102.0" />
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="102.0" />
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="102.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <Button fx:id="btnAgregar" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cambiarNuevoProducto" prefHeight="34.0" prefWidth="91.0" styleClass="btnRegresar" text="AGREGAR" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold Italic" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="btnEditar" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#cambiarEdicionProducto" prefHeight="34.0" prefWidth="91.0" styleClass="btnRegresar" text="EDITAR" textFill="WHITE" GridPane.columnIndex="1">
-                     <font>
-                        <Font name="System Bold Italic" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="btnEliminar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cambiarCancelarEliminar" prefHeight="34.0" prefWidth="91.0" styleClass="btnRegresar" text="ELIMINAR" textFill="WHITE" GridPane.columnIndex="2">
-                     <font>
-                        <Font name="System Bold Italic" size="12.0" />
-                     </font>
-                  </Button>
-               </children>
-            </GridPane>
-            <Button fx:id="btnReporte" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="34.0" prefWidth="91.0" styleClass="btnRegresar" text="REPORTE" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="3">
-               <font>
-                  <Font name="System Bold Italic" size="12.0" />
-               </font>
-            </Button>
-         </children>
-      </GridPane>
-      <TableView fx:id="tablaProductos" layoutX="28.0" layoutY="377.0" prefHeight="281.0" prefWidth="943.0">
+      <TableView fx:id="tablaProductos" layoutX="27.0" layoutY="330.0" prefHeight="670.0" prefWidth="1852.0" stylesheets="@../resource/facturaview.css" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="41.0">
          <columns>
             <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
             <TableColumn fx:id="colNombre" prefWidth="197.0" text="NOMBRE" />
@@ -106,12 +30,108 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <ImageView fitHeight="82.0" fitWidth="98.0" layoutX="28.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+      <GridPane alignment="CENTER" layoutX="27.0" layoutY="96.0" prefHeight="219.0" prefWidth="1852.0" styleClass="grid-pane" stylesheets="@../resource/facturaview.css" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="41.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
+            <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="SOMETIMES" maxWidth="351.0" minWidth="10.0" prefWidth="321.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" />
+            <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="404.0" minWidth="10.0" prefWidth="203.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label text="ID" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtId" prefHeight="36.0" prefWidth="400.0" styleClass="label-textField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="NOMBRE" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label text="PRECIO" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtNombre" prefHeight="36.0" prefWidth="400.0" styleClass="label-textField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtPrecio" prefHeight="36.0" prefWidth="400.0" styleClass="label-textField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="STOCK" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label text="CODIGO DE BARRA" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtStock" prefHeight="36.0" prefWidth="400.0" styleClass="label-textField" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <TextField fx:id="txtCodigoBarras" prefHeight="36.0" prefWidth="400.0" styleClass="label-textField" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <GridPane prefHeight="48.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="102.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="102.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="102.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Button fx:id="btnAgregar" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cambiarNuevoProducto" prefHeight="34.0" prefWidth="120.0" text="AGREGAR" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnEditar" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#cambiarEdicionProducto" prefHeight="34.0" prefWidth="120.0" text="EDITAR" textFill="WHITE" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnEliminar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cambiarCancelarEliminar" prefHeight="34.0" prefWidth="120.0" text="ELIMINAR" textFill="WHITE" GridPane.columnIndex="2">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </GridPane>
+         </children>
+      </GridPane>
+      <ImageView fitHeight="80.0" fitWidth="342.0" layoutX="27.0" layoutY="8.0" pickOnBounds="true" styleClass="img-ovalada">
          <image>
-            <Image url="@../image/PRODUCTOSSS.png" />
+            <Image url="@../image/Naranja.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnRegresar" contentDisplay="TOP" layoutX="868.0" layoutY="13.0" mnemonicParsing="false" onAction="#btnRegresarActionEvent" prefHeight="80.0" prefWidth="103.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="RETURN" textFill="WHITE">
+      <Label layoutX="106.0" layoutY="14.0" prefHeight="66.0" prefWidth="244.0" styleClass="label-title" stylesheets="@../resource/facturaview.css" text="PRODUCTOS" textAlignment="CENTER" AnchorPane.leftAnchor="106.0">
+         <font>
+            <Font name="Bell MT" size="30.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="0.9431279620853081" endY="0.41706161137440756" startX="0.95260663507109" startY="0.7582938388625593">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.9868420958518982" green="0.4655519127845764" blue="0.24214181303977966" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
+      <Button fx:id="btnRegresar" contentDisplay="TOP" layoutX="1769.0" layoutY="11.0" mnemonicParsing="false" onAction="#btnRegresarActionEvent" prefHeight="80.0" prefWidth="110.0" styleClass="btnRegresar" stylesheets="@../resource/facturaview.css" text="RETURN" textFill="WHITE" AnchorPane.rightAnchor="41.0">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
@@ -123,5 +143,10 @@
             </ImageView>
          </graphic>
       </Button>
+      <ImageView fitHeight="61.0" fitWidth="50.0" layoutX="40.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/PRODUCTOSSS.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
