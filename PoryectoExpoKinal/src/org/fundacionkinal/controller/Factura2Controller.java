@@ -160,7 +160,7 @@ public class Factura2Controller implements Initializable {
 
                 Statement stmtUpdate = conexion.createStatement();
                 stmtUpdate.executeUpdate("UPDATE Compras SET estadoCompra = 'Completada', estadoPago = 'Pagado' WHERE idCompra = " + idCompraActual);
-
+                imprimirReporte();
                 mostrarMensaje("","Pago registrado y factura generada exitosamente");
                 principal.getFacturaView();
                 
@@ -170,7 +170,6 @@ public class Factura2Controller implements Initializable {
             }
             
         }
-        imprimirReporte();
     }
 
         //Map parametros

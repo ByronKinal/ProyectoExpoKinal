@@ -40,7 +40,7 @@
               </rowConstraints>
               <children>
                   <Label GridPane.rowIndex="1" />
-                  <Label prefHeight="38.0" prefWidth="200.0" text="NIT" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                  <Label prefHeight="38.0" prefWidth="200.0" text="NIT" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                       <rotationAxis>
                           <Point3D x="2.0" z="1.0" />
                       </rotationAxis>
@@ -61,7 +61,7 @@
                   <Font size="30.0" />
                </font>
                   </Label>
-                  <TextField fx:id="txtCliente" prefHeight="60.0" prefWidth="220.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <TextField fx:id="txtCliente" prefHeight="60.0" prefWidth="220.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="25.0" />
                </font></TextField>
@@ -125,18 +125,10 @@
                      </font></RadioButton>
                       </children>
                   </HBox>
-            <Label prefHeight="38.0" prefWidth="200.0" text="NOMBRE" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
-               <font>
-                  <Font size="30.0" />
-               </font></Label>
             <Label prefHeight="38.0" prefWidth="200.0" text="NÚMERO" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                <font>
                   <Font size="30.0" />
                </font></Label>
-            <TextField fx:id="txtNombre" prefHeight="60.0" prefWidth="220.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <font>
-                  <Font size="25.0" />
-               </font></TextField>
             <TextField fx:id="txtNumero" prefHeight="60.0" prefWidth="220.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font size="25.0" />
@@ -149,6 +141,16 @@
                <font>
                   <Font size="20.0" />
                </font></Button>
+            <Label prefHeight="38.0" prefWidth="200.0" text="NOMBRE" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtNombre" prefHeight="60.0" prefWidth="220.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </TextField>
               </children>
           </GridPane>
       <ImageView fitHeight="77.0" fitWidth="279.0" layoutX="16.0" layoutY="8.0" pickOnBounds="true">
