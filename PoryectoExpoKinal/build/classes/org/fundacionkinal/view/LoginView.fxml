@@ -18,17 +18,17 @@
             <Image url="@../image/LOGIN.png" />
          </image>
       </ImageView>
-      <GridPane layoutX="656.0" layoutY="415.0" prefHeight="372.0" prefWidth="620.0" styleClass="grid-pane" stylesheets="@../resource/facturaview.css">
+      <GridPane layoutX="656.0" layoutY="415.0" prefHeight="390.0" prefWidth="650.0" styleClass="grid-pane" stylesheets="@../resource/facturaview.css">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="65.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.8000061035156" minWidth="10.0" prefWidth="170.0" />
-          <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" maxWidth="401.99993896484375" minWidth="10.0" prefWidth="313.0" />
-            <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" maxWidth="378.0" minWidth="10.0" prefWidth="79.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.8000061035156" minWidth="10.0" prefWidth="162.60001220703126" />
+          <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" maxWidth="401.99993896484375" minWidth="10.0" prefWidth="325.79998779296875" />
+            <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" maxWidth="378.0" minWidth="10.0" prefWidth="93.99992675781255" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label prefHeight="43.0" prefWidth="185.0" text="EMAIL" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
@@ -41,17 +41,20 @@
                   <Font size="29.0" />
                </font>
             </Label>
-            <TextField fx:id="txtCorreo" prefHeight="55.0" prefWidth="325.0" GridPane.columnIndex="2">
+            <TextField fx:id="txtCorreo" prefHeight="55.0" prefWidth="400.0" GridPane.columnIndex="2">
                <font>
                   <Font size="24.0" />
                </font></TextField>
-            <TextField fx:id="txtContraseña" prefHeight="55.0" prefWidth="325.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <TextField fx:id="txtContraseña" prefHeight="55.0" prefWidth="400.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <font>
                   <Font size="24.0" />
                </font></TextField>
-            <Button fx:id="btnIngresar" mnemonicParsing="false" onAction="#clickManejadorEventos" prefHeight="70.0" prefWidth="175.0" stylesheets="@../resource/facturaview.css" text="INGRESAR" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button fx:id="btnIngresar" mnemonicParsing="false" onAction="#clickManejadorEventos" prefHeight="100.0" prefWidth="200.0" styleClass="button11" stylesheets="@../resource/facturaview.css" text="INGRESAR" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button fx:id="btnCerrar" layoutX="58.0" layoutY="48.0" mnemonicParsing="false" onAction="#clickManejadorEventos" text="CERRAR" />
+      <Button fx:id="btnCerrar" layoutX="58.0" layoutY="48.0" mnemonicParsing="false" onAction="#clickManejadorEventos" prefHeight="100.0" prefWidth="200.0" styleClass="button11" text="CERRAR">
+         <font>
+            <Font size="16.0" />
+         </font></Button>
    </children>
 </AnchorPane>
