@@ -1058,4 +1058,5 @@ call sp_ListarDetalleCompras();
 -- call sp_ListarDetalleCompras;
 -- call sp_AgregarFactura("Efectivo",1,1,1);
 call sp_ListarFactura();
+call sp_ListarClientes();
 -- call sp_AgregarCliente('Luis','224647202',1, 545);
