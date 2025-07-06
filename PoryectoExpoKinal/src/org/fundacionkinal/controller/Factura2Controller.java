@@ -157,8 +157,8 @@ public class Factura2Controller implements Initializable {
                 if (!nombreCliente.isEmpty() || !nitCliente.isEmpty()) {
                     // Si hay datos, usar sp_AgregarCliente con los valores proporcionados
                     CallableStatement procedimientoCliente = conexion.prepareCall("{call sp_AgregarCliente(?, ?, ?, ?)}");
-                    procedimientoCliente.setString(1, nombreCliente.isEmpty() ? "Consumidor final" : nombreCliente);
-                    procedimientoCliente.setString(2, nitCliente.isEmpty() ? "Consumidor final" : nitCliente);
+                    procedimientoCliente.setString(1, nombreCliente.isEmpty() ? "Consumidor Final" : nombreCliente);
+                    procedimientoCliente.setString(2, nitCliente.isEmpty() ? "Consumidor Final" : nitCliente);
                     procedimientoCliente.setInt(3, idCompraActual);
                     procedimientoCliente.setInt(4, idFactura);
                     procedimientoCliente.execute();
