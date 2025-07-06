@@ -1,7 +1,4 @@
-
 package org.fundacionkinal.controller;
-
-
 
 import java.sql.*;
 import javafx.scene.control.*;
@@ -9,7 +6,6 @@ import org.fundacionkinal.database.Conexion;
 import org.fundacionkinal.model.Usuario;
 import org.fundacionkinal.report.Report;
 import org.fundacionkinal.system.Main;
-
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,6 +24,7 @@ import java.util.HashMap;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
+
 /**
  * FXML Controller class
  *
@@ -36,9 +33,9 @@ import javafx.scene.control.RadioButton;
 public class Factura2Controller implements Initializable {
 
     @FXML
-    private Button  btnPagar, btnEnviar, btnCancelar;
+    private Button btnPagar, btnEnviar, btnCancelar;
     @FXML
-    private TextField txtCliente, txtSubtotal, txtTotal;
+    private TextField txtNit, txtNombre, txtSubtotal, txtTotal;
     @FXML
     private ComboBox<Usuario> cbEmpleado;
     @FXML
@@ -130,27 +127,17 @@ public class Factura2Controller implements Initializable {
                 String metodoPago = rbEfectivo.isSelected() ? "Efectivo" : "Tarjeta";
                 double total = Double.parseDouble(txtTotal.getText());
 
+                // Primero crear el pago
                 CallableStatement procedimientoPago = conexion.prepareCall("{call sp_AgregarPagos(?, ?, ?, ?)}");
                 procedimientoPago.setString(1, metodoPago);
                 procedimientoPago.setDouble(2, total);
                 procedimientoPago.setInt(3, idCompraActual);
                 procedimientoPago.registerOutParameter(4, Types.INTEGER);
                 procedimientoPago.execute();
-
                 int idPago = procedimientoPago.getInt(4);
 
+                // Crear la factura
                 Usuario empleado = cbEmpleado.getSelectionModel().getSelectedItem();
-                String nombreCliente = txtCliente.getText();
-
-                if (!nombreCliente.isEmpty()) {
-                    CallableStatement procedimientoCliente = conexion.prepareCall("{call sp_AgregarCliente(?, ?, ?, ?)}");
-                    procedimientoCliente.setString(1, nombreCliente);
-                    procedimientoCliente.setString(2, "");
-                    procedimientoCliente.setInt(3, idCompraActual);
-                    procedimientoCliente.setInt(4, 0);
-                    procedimientoCliente.execute();
-                }
-
                 CallableStatement procedimientoFactura = conexion.prepareCall("{call sp_AgregarFactura(?, ?, ?, ?)}");
                 procedimientoFactura.setString(1, metodoPago);
                 procedimientoFactura.setInt(2, empleado.getIdUsuario());
@@ -158,57 +145,79 @@ public class Factura2Controller implements Initializable {
                 procedimientoFactura.setInt(4, idPago);
                 procedimientoFactura.execute();
 
+                // Obtener el ID de la factura recién creada
+                Statement stmtFactura = conexion.createStatement();
+                ResultSet rsFactura = stmtFactura.executeQuery("SELECT MAX(idFactura) FROM Facturas");
+                int idFactura = rsFactura.next() ? rsFactura.getInt(1) : 0;
+
+                // Manejar el cliente
+                String nombreCliente = txtNombre.getText().trim();
+                String nitCliente = txtNit.getText().trim();
+
+                if (!nombreCliente.isEmpty() || !nitCliente.isEmpty()) {
+                    // Si hay datos, usar sp_AgregarCliente con los valores proporcionados
+                    CallableStatement procedimientoCliente = conexion.prepareCall("{call sp_AgregarCliente(?, ?, ?, ?)}");
+                    procedimientoCliente.setString(1, nombreCliente.isEmpty() ? "Consumidor final" : nombreCliente);
+                    procedimientoCliente.setString(2, nitCliente.isEmpty() ? "Consumidor final" : nitCliente);
+                    procedimientoCliente.setInt(3, idCompraActual);
+                    procedimientoCliente.setInt(4, idFactura);
+                    procedimientoCliente.execute();
+                } else {
+                    // Si no hay datos, usar sp_AgregarCliente2 con valores por defecto
+                    CallableStatement procedimientoCliente = conexion.prepareCall("{call sp_AgregarCliente2(?, ?)}");
+                    procedimientoCliente.setInt(1, idCompraActual);
+                    procedimientoCliente.setInt(2, idFactura);
+                    procedimientoCliente.execute();
+                }
+
+                // Actualizar estado de la compra
                 Statement stmtUpdate = conexion.createStatement();
                 stmtUpdate.executeUpdate("UPDATE Compras SET estadoCompra = 'Completada', estadoPago = 'Pagado' WHERE idCompra = " + idCompraActual);
-                imprimirReporte();
-                mostrarMensaje("","Pago registrado y factura generada exitosamente");
+
+                // Generar reporte
+                imprimirReporte(idCompraActual);
+                mostrarMensaje("", "Pago registrado y factura generada exitosamente");
                 principal.getFacturaView();
-                
+
             } catch (SQLException e) {
                 mostrarAlerta("Error al registrar pago: " + e.getMessage());
                 e.printStackTrace();
             }
-            
         }
     }
 
-        //Map parametros
-    private Map<String , Object> parametros;
+    //Map parametros
+    private Map<String, Object> parametros;
+
     //cargador de imputStream
-    private InputStream cargarReporte(String urlReporte){
+    private InputStream cargarReporte(String urlReporte) {
         InputStream reporte = null;
-        try{
-        reporte = Main.class.getResourceAsStream(urlReporte);
-        reporte.getClass().getResource(urlReporte);
-        }catch (Exception e){
-            System.out.println("Error al cargar Reporte"+urlReporte+e.getMessage());   
-           
+        try {
+            reporte = Main.class.getResourceAsStream(urlReporte);
+            reporte.getClass().getResource(urlReporte);
+        } catch (Exception e) {
+            System.out.println("Error al cargar Reporte" + urlReporte + e.getMessage());
+
         }
-         return reporte;
+        return reporte;
     }
-    
-        private void imprimirReporte() {
-            Connection conexion = Conexion.getInstancia().getConexion();
-            parametros = new HashMap<String, Object>();
 
-            try {
-                Statement stmt = conexion.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT MAX(idCompra) FROM Compras");
+    private void imprimirReporte(int idCompra) {
+        Connection conexion = Conexion.getInstancia().getConexion();
+        parametros = new HashMap<String, Object>();
 
-                int idCompra = 1;
-                if (rs.next()) {
-                    idCompra = rs.getInt(1);
-                }
-
-                String url = "/org/fundacionkinal/report/";
-                parametros.put("idCompra", idCompra);
-                parametros.put("url", getClass().getResource(url).toString());
-                Report.generarReporte(conexion, parametros, cargarReporte("/org/fundacionkinal/report/Factura.jasper"));
-                Report.mostrarReporte();
-            } catch (SQLException e) {
-                mostrarAlerta("Error al obtener última compra: " + e.getMessage());
-            }
+        try {
+            String url = "/org/fundacionkinal/report/";
+            parametros.put("idCompra", idCompra);
+            parametros.put("url", getClass().getResource(url).toString());
+            
+            Report.generarReporte(conexion, parametros, cargarReporte("/org/fundacionkinal/report/Factura.jasper"));
+            Report.mostrarReporte();
+        } catch (Exception e) {
+            mostrarAlerta("Error al generar reporte: " + e.getMessage());
         }
+    }
+
     @FXML
     private void cancelarPedido() {
         try {
@@ -226,7 +235,7 @@ public class Factura2Controller implements Initializable {
         if (cbEmpleado.getSelectionModel().isEmpty()) {
             mostrarAlerta("Seleccione un empleado");
             return false;
-        }
+        }   
 
         if (!rbEfectivo.isSelected() && !rbTarjeta.isSelected()) {
             mostrarAlerta("Seleccione un método de pago");
@@ -243,7 +252,7 @@ public class Factura2Controller implements Initializable {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
-    
+
     private void mostrarMensaje(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);

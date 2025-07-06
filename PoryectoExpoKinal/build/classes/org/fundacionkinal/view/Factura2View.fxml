@@ -30,7 +30,6 @@
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="875.0" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-            <RowConstraints maxHeight="160.0" minHeight="10.0" prefHeight="80.60000610351562" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="174.1999969482422" minHeight="10.0" prefHeight="141.39999389648438" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="160.0" minHeight="10.0" prefHeight="160.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="160.0" minHeight="10.0" prefHeight="160.0" vgrow="SOMETIMES" />
@@ -39,7 +38,7 @@
             <RowConstraints maxHeight="160.0" minHeight="10.0" prefHeight="82.0" vgrow="SOMETIMES" />
               </rowConstraints>
               <children>
-                  <Label GridPane.rowIndex="1" />
+                  <Label />
                   <Label prefHeight="38.0" prefWidth="200.0" text="NIT" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                       <rotationAxis>
                           <Point3D x="2.0" z="1.0" />
@@ -48,12 +47,12 @@
                   <Font size="30.0" />
                </font>
                   </Label>
-                  <Label GridPane.rowIndex="1">
+                  <Label>
                       <rotationAxis>
                           <Point3D x="2.0" z="1.0" />
                       </rotationAxis>
                   </Label>
-                  <Label prefHeight="45.0" prefWidth="200.0" text="EMPLEADO" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                  <Label prefHeight="45.0" prefWidth="200.0" text="EMPLEADO" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                       <rotationAxis>
                           <Point3D x="2.0" z="1.0" />
                       </rotationAxis>
@@ -61,11 +60,11 @@
                   <Font size="30.0" />
                </font>
                   </Label>
-                  <TextField fx:id="txtCliente" prefHeight="60.0" prefWidth="220.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <TextField fx:id="txtNit" prefHeight="60.0" prefWidth="220.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="25.0" />
                </font></TextField>
-                  <Label prefHeight="84.0" prefWidth="275.0" text="MÉTODO DE PAGO " GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+                  <Label prefHeight="84.0" prefWidth="275.0" text="MÉTODO DE PAGO " GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                       <rotationAxis>
                           <Point3D x="2.0" z="1.0" />
                       </rotationAxis>
@@ -73,7 +72,7 @@
                   <Font size="30.0" />
                </font>
                   </Label>
-            <VBox GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <VBox GridPane.columnIndex="4">
                <children>
                         <TextField fx:id="txtSubtotal" prefHeight="100.0" prefWidth="220.0" styleClass="labelTotales">
                      <font>
@@ -90,7 +89,7 @@
                         </Label>
                </children>
             </VBox>
-            <VBox GridPane.columnIndex="4" GridPane.rowIndex="2">
+            <VBox GridPane.columnIndex="4" GridPane.rowIndex="1">
                <children>
                   <TextField minHeight="70.0" styleClass="labelTotales" />
                         <TextField fx:id="txtTotal" prefHeight="100.0" prefWidth="220.0" styleClass="labelTotales">
@@ -108,8 +107,8 @@
                   </Label>
                </children>
             </VBox>
-                  <ComboBox fx:id="cbEmpleado" prefHeight="60.0" prefWidth="866.0" styleClass="label-textField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="276.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <ComboBox fx:id="cbEmpleado" prefHeight="60.0" prefWidth="866.0" styleClass="label-textField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="276.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                       <children>
                           <RadioButton fx:id="rbEfectivo" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="EFECTIVO">
                      <toggleGroup>
@@ -122,22 +121,15 @@
                           <RadioButton fx:id="rbTarjeta" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="TARJETA" toggleGroup="$Cobro">
                      <font>
                         <Font size="25.0" />
-                     </font></RadioButton>
+                     </font>
+                  </RadioButton>
                       </children>
                   </HBox>
-            <Label prefHeight="38.0" prefWidth="200.0" text="NÚMERO" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
-               <font>
-                  <Font size="30.0" />
-               </font></Label>
-            <TextField fx:id="txtNumero" prefHeight="60.0" prefWidth="220.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <font>
-                  <Font size="25.0" />
-               </font></TextField>
-            <Button fx:id="btnPagar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pagar" prefHeight="125.0" prefWidth="225.0" text="COMPLETAR COMPRA" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+            <Button fx:id="btnPagar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pagar" prefHeight="125.0" prefWidth="225.0" text="COMPLETAR COMPRA" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                <font>
                   <Font size="20.0" />
                </font></Button>
-            <Button fx:id="btnCancelar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cancelarPedido" prefHeight="125.0" prefWidth="225.0" text="CANCELAR PEDIDO" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+            <Button fx:id="btnCancelar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cancelarPedido" prefHeight="125.0" prefWidth="225.0" text="CANCELAR PEDIDO" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                <font>
                   <Font size="20.0" />
                </font></Button>

@@ -128,8 +128,8 @@ CREATE TABLE AuditoriaProductos (
 );
 create table Cliente(
 	idCliente int auto_increment,
-	nombreCliente varchar (128),
-    NIT varchar(128),
+	nombreCliente varchar (128) default 'Consumidor final',
+    NIT varchar(128) default 'Consumidor final',
     idCompra int,
     idFactura int,
     constraint pk_clientes primary key (idCliente), 
@@ -155,7 +155,17 @@ create procedure sp_AgregarCliente(
 	end;
 $$
 DELIMITER ;
---
+
+DELIMITER $$ 
+create procedure sp_AgregarCliente2(
+		in p_idCompra int,
+        in p_idFactura int)
+	begin
+		insert into CLiente(idCompra,idFactura)
+		values(p_idCompra,p_idFactura);
+	end;
+$$
+DELIMITER ;
 
 -- READ:
 DELIMITER $$
@@ -1049,8 +1059,3 @@ call sp_ListarDetalleCompras();
 -- call sp_AgregarFactura("Efectivo",1,1,1);
 call sp_ListarFactura();
 -- call sp_AgregarCliente('Luis','224647202',1, 545);
-
--- necesita una compra y factura para que sirva 
-
-call sp_AgregarCliente("Byron Pineda",12345,1,1 );
-call sp_AgregarCliente("Kevin",12345,2,2 );
